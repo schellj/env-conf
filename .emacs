@@ -107,7 +107,10 @@
     (exec-path-from-shell spinner perlcritic flymake-perlcritic flycheck php-mode magit js2-mode cperl-mode)))
  '(switch-to-buffer-preserve-window-point t))
 
-(set-scroll-bar-mode nil)
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)))
 
 ;; (defadvice cperl-backward-to-start-of-continued-exp (after indentation-fix)
 ;;   (and (not (memq char-after '(?\) ?\})))
