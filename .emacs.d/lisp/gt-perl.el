@@ -91,7 +91,7 @@ C-c t           gt-perl-template
 (defun gt-perl-compile-command nil
   "Returns a string compile-command."
   (concat
-   "PERLLIB=~/gtperl perl -w "
+   "PERLLIB=$HOME/gtperl perl -w "
    (file-name-nondirectory buffer-file-name)))
 
 (defun gt-perl-man-builtin nil
