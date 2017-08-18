@@ -372,3 +372,9 @@
     ;; try to emulate some of the eww key-bindings
     (local-set-key (kbd "<tab>") 'shr-next-link)
     (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-autoremove)
+(package-install-selected-packages)
