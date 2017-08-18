@@ -73,7 +73,6 @@ source ~/.git-prompt.sh
 # fi
 # unset color_prompt force_color_prompt
 
-# PS1='\e[1;36;40m[\e[31m\W\e[32m\[$(__git_ps1)\]\e[36m]\$\e[8m \e[m'
 PS1='\[\e[36;40m\][\[\e[32m\]\W\[\e[31m\]$(__git_ps1)\[\e[36m\]]\$\[\e[8m\] \[\e[m\]'
 
 # case "$TERM" in
