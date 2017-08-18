@@ -78,3 +78,15 @@ function delete_nodes {
     gcloud compute instances delete $@
 }
 
+function track_container {
+    container=$1
+    shift
+    sources=$@
+    files=$(for s in $sources; do git -C $HOME/src/$s ls-files | awk -v d=$HOME -v s=$s '{print d "/src/" s "/" $1}'; done)
+    fswatch $files | while read f; do echo [[$f]]; docker restart $container; done
+}
+
+function watch_container {
+    container=$1
+    while sleep 3; do docker_id=$(docker ps -qf name=$container); if [ "x$docker_id" != "x" ]; then docker attach $container; else echo .; fi; done
+}
