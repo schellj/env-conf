@@ -57,12 +57,12 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWCOLORHINTS=
-GIT_PS1_SHOWUPSTREAM="auto"
-GIT_PS1_DESCRIBE_STYLE="branch"
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWCOLORHINTS=
+export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_DESCRIBE_STYLE="branch"
 source ~/.git-prompt.sh
 
 # if [ "$color_prompt" = yes ]; then
@@ -106,6 +106,6 @@ export PATH="~/bin/Sencha/Cmd:~/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
 
-PERLLIB="~/gtperl"
-PERL5LIB="~/gtperl"
-PERL_CPANM_OPT='--sudo'
+export PERLLIB="$HOME/gtperl"
+export PERL5LIB="$HOME/gtperl"
+export PERL_CPANM_OPT='--sudo'
