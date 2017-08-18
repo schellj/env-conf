@@ -42,3 +42,34 @@ function reth {
 function gg {
     git grep $@
 }
+function old_nodes {
+    old_nodes="$(echo $(gcloud compute instance-groups managed list-instances auto1-$1 | grep -v NAME | awk '{print $1}'))"
+    echo old_nodes: $old_nodes
+}
+
+function abandon_nodes {
+    group=$1
+    shift
+    nodes=$@
+    echo gcloud compute instance-groups managed abandon-instances auto1-$group --instances="$(echo $nodes | tr ' ' ',')"
+    gcloud compute instance-groups managed abandon-instances auto1-$group --instances="$(echo $nodes | tr ' ' ',')"
+}
+
+function node_status {
+    group=$1
+    shift
+    command=$@
+    if [ "x$command" = "x" ]
+    then
+        command='sudo docker ps -a';
+    fi
+
+    echo for z in \$\( gcloud compute instance-groups managed list-instances auto1-$group --uri \)\; do echo \$z\; gcloud compute ssh \$z -- \"$command\"\; done
+    for z in $( gcloud compute instance-groups managed list-instances auto1-$group --uri ); do echo $z; gcloud compute ssh $z -- $command; done
+}
+
+function delete_nodes {
+    echo gcloud compute instances delete $@
+    gcloud compute instances delete $@
+}
+
