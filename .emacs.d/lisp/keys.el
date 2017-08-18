@@ -24,6 +24,16 @@
 
 (global-set-key (kbd "M-C-m") 'magit-status)
 
+(global-unset-key [f2])
+(define-prefix-command 'f2-map)
+(global-set-key (kbd "<f2>") 'f2-map)
+(global-set-key (kbd "<f2> l") 'goto-line)
+
+(global-unset-key [f3])
+(define-prefix-command 'f3-map)
+(global-set-key (kbd "<f3>") 'f3-map)
+(global-set-key (kbd "<f3> l") 'goto-line)
+
 (global-set-key (kbd "s-s") 'copy-to-register)
 (global-set-key (kbd "s-r") 'copy-rectangle-to-register)
 (global-set-key (kbd "s-i") 'insert-register)
