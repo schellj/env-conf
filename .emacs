@@ -96,6 +96,13 @@
  '(display-buffer-alist (quote (("shell" display-buffer-same-window (nil)))))
  '(flycheck-perl-include-path (quote ("~/gtperl")))
  '(indent-tabs-mode nil)
+ '(mu4e-headers-fields
+   (quote
+    ((:maildir . 8)
+     (:human-date . 12)
+     (:from . 22)
+     (:subject))))
+ '(mu4e-html2text-command "w3m -T text/html")
  '(package-selected-packages
    (quote
     (exec-path-from-shell spinner perlcritic flymake-perlcritic flycheck php-mode magit js2-mode cperl-mode)))
@@ -299,3 +306,13 @@
   (exec-path-from-shell-initialize))
 
 (desktop-save-mode 1)
+(offlineimap)
+
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
+(require 'mu4e)
+(setq mu4e-mu-binary "/usr/local/bin/mu")
+(add-hook 'mu4e-view-mode-hook
+  (lambda()
+    ;; try to emulate some of the eww key-bindings
+    (local-set-key (kbd "<tab>") 'shr-next-link)
+    (local-set-key (kbd "<backtab>") 'shr-previous-link)))
