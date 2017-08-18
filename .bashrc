@@ -104,7 +104,6 @@ fi
 export PATH="~/bin/Sencha/Cmd:~/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
 
 bind "set completion-ignore-case on"
-bind "set show-all-if-ambiguous on"
 
 export PERLLIB="$HOME/gtperl"
 export PERL5LIB="$HOME/gtperl"
