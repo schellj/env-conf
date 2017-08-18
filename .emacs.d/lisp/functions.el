@@ -93,7 +93,7 @@ From the window at the lower right corner, select the one at the upper left."
   ;; I'd like to have the term names have the *term-ansi-term<?>* form,
   ;; for now they have the *term-ansi-term*<?> form but we'll see...
   (when current-prefix-arg
-    (setq term-ansi-buffer-name 
+    (setq term-ansi-buffer-name
           (generate-new-buffer-name term-ansi-buffer-name)))
 
   (let* ((name (file-name-nondirectory program))
@@ -121,3 +121,16 @@ From the window at the lower right corner, select the one at the upper left."
   (term-set-escape-char ?\C-x)
 
   (switch-to-buffer term-ansi-buffer-name))
+
+(defun ffap-gits (name)
+  (setq start (point))
+  (re-search-backward "=== \\([a-zA-Z0-9-_]+\\) ===" nil t 1)
+  (setq repo (match-string 1))
+  (goto-char start)
+  repo)
+
+(defun ffap-gits-current (name)
+  (concat (ffap-gits name) "/" name))
+
+(defun ffap-gits-src (name)
+  (concat "~/src/" (ffap-gits name) "/" name))
