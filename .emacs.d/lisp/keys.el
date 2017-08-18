@@ -24,6 +24,19 @@
 
 (global-set-key (kbd "M-C-m") 'magit-status)
 
+(global-set-key (kbd "s-s") 'copy-to-register)
+(global-set-key (kbd "s-r") 'copy-rectangle-to-register)
+(global-set-key (kbd "s-i") 'insert-register)
+(global-set-key (kbd "s-SPC") 'point-to-register)
+(global-set-key (kbd "s-j") 'jump-to-register)
+(global-set-key (kbd "s-w") 'window-configuration-to-register)
+(global-set-key (kbd "s-f") 'frameset-to-register)
+(global-set-key (kbd "s-n") 'number-to-register)
+(global-set-key (kbd "s-+") 'increment-register)
+(global-set-key (kbd "s-a") 'append-to-register)
+(global-set-key (kbd "s-p") 'prepend-to-register)
+(global-set-key (kbd "s-k") 'kmacro-to-register)
+
 (define-prefix-command 'help)
 (global-set-key (kbd "C-/") 'help)
 (global-set-key (kbd "C-c C-/") 'help)
