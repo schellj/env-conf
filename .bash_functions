@@ -42,6 +42,11 @@ function reth {
 function gg {
     git grep $@
 }
+
+function title {
+    echo -ne "\033]0;"$*"\007"
+}
+
 function old_nodes {
     old_nodes="$(echo $(gcloud compute instance-groups managed list-instances auto1-$1 | grep -v NAME | awk '{print $1}'))"
     echo old_nodes: $old_nodes
