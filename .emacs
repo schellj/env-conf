@@ -1,7 +1,3 @@
-;; (add-to-list 'default-frame-alist '(height . 67))
-;; (add-to-list 'default-frame-alist '(width . 237))
-
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -15,7 +11,6 @@
 (defalias 'perl-mode 'cperl-mode)
 (load-library "functions.el")
 (load-library "keys.el")
-(eval-after-load 'magit '(load-library "setup-magit.el"))
 
 (when (>= emacs-major-version 24)
   (require 'package)
@@ -55,7 +50,6 @@
  complete-ignore-case t
  completion-ignore-case t
  completions-format (quote vertical)
- cperl-font-lock t
 
  cperl-close-paren-offset -4
  cperl-continued-statement-offset 4
@@ -304,5 +298,4 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-(fringe-mode '(4 . 4))
 (desktop-save-mode 1)
