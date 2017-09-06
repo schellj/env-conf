@@ -1,5 +1,5 @@
 [core]
-    excludesfile = /Users/schellj/.gitignore_global
+    excludesfile = ~/.gitignore_global
     pager = less -FRXK
 [user]
     name = Justin Schell
