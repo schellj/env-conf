@@ -2,7 +2,12 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/") t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (package-initialize))
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (setq custom-theme-load-path
@@ -12,16 +17,78 @@
 (load-library "functions.el")
 (load-library "keys.el")
 
-(require 'ffap)
-(add-to-list 'ffap-alist '(shell-mode . ffap-gits-src))
-(add-to-list 'ffap-alist '(shell-mode . ffap-gits-current))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(blink-cursor-blinks -1)
+ '(c-tab-always-indent t)
+ '(comint-scroll-to-bottom-on-input t)
+ '(cperl-break-one-line-blocks-when-indent nil)
+ '(cperl-fix-hanging-brace-when-indent nil)
+ '(cperl-indent-comment-at-column-0 t)
+ '(cperl-indent-level 4)
+ '(cperl-indent-parens-as-block t)
+ '(cperl-indent-subs-specially nil)
+ '(cperl-tab-always-indent t)
+ '(cursor-type (quote box))
+ '(custom-safe-themes
+   (quote
+    ("5a43d88aec40a820034949fd87cf2435b31680134062bfa288569a9d1b54cb81" "2214f118823232b9cb67ab7efee814fd4f8c6a7ff1129ae812730ef42dfa63a1" "f36f1114fd0c8c3256a01f778cfff4c42f11164d1c078b28dd76c5ec22c3e96e" "b54249205cf62ee5f7486adadb22147e34d534812889d8c8f3655283136d8e1c" "97846b744c29259a892fcc34e6c4491b5a45aea44942c00842f2231abb8238da" "e985232da392939348c9a8e9c842b0a00a7e705670290ed78deeafe0ace9d152" "cfccfee425958e436350031685a10cd6aa57556af78c6030e7d8f640c9e11eca" "1011e3a1284a771b3cedd0a151d2aa0aee331e18fa16e97cbd5e66d82cc4ca3f" "2f209bf70f3e7db1318a918e7ca96853b2479fea34099768657538f74501984d" "b038e5703838757ad1fb53f389e0d5bc2752aa609af8cab87814c10737fc4342" "8c285861ff09a59100dc343bbd1910541ccf46c8300fe43a3fcefaad40909fca" "6953ef9d809755080e5892c7cd520263cfe56ba8777c1797733ccea5469af553" "89c552817af45d88bd20dc19bf0ed04a0b924b3fd6f75b65b239e30613241d02" "07622b7f47e9ff112439bda64da7591015634d4558ddf1f13a7751e6d527db2d" "fa53251842abb9f2c55caf3454a6fd1d681086b35718995467559cc7d6b5d697" "6f7bef43b031da5a1be3d79b974e3813f0bd66dce61e951a69a6965c999d57d7" "8ef8219578f32fad8d0223463d7f23731027af202859e06ec5c57cffca94883c" "31eee636fd72dac6223abd847a800b6a26a0608d7c3e8576e944dfbd6d7f6476" "a6fa10b5583a520a82ecb13c1058871db244123cdea4b645ff8c09c9798d938b" "d275e09b4d53dc753324e32690b4e3279e1a407b292fdb2f4a42e89b491e3449" "a1df36e4d43f2452133e9b015d41869ddd49dfcc45277a1ca5089c920bd4950c" "3586825e7ddad049a04ef36d573f226ee9df2124b81164bf9aedbd1562b4487d" "a687d2eb3e97dca84b842178c8154c08725a5ff59ac09c943c0678a9fd991358" "c81df9c14a4793143d04b9af9f3c80207922f9a3f38ade7b55fa95eb25f7a678" "1c5ffd9e809e6da5f421206b5ea4bfee8015dd8d6781625d49d2c84723a56256" "61faab7500cec648f6dbe77fa6a6b36b96913ae51cced47e63f85f312549a6ed" "75be5c4b8f9c38d1c865dcffd9271c0c92836d09e2397c30017c6f9a175f9810" "0cd9f708df2a944f301003c1980bdaa7315f706264d965f51da1a5e40954ef15" "7263d172afc1f3db5290ed35f7af47325e6bb5a655ad2663aaaa65ee4f482796" "0ff6e3e526c57501b580d7d73dd07327b0bc7d8178837a1fa0eb70312b799ccd" "b848abceb7cfb5e07abdcff49be82a99e1a30e6836473b9e11f36975929616df" "f9092c98f5335b65f61dcbc473f388a49bfbea7ced847757f0aa3f5f88856629" "771e786dfaab907f7933f76a52fd8a00b5aa5872ee0d6e698c4bf3c9eba08f4b" "fb5752fd6db922cf0280cb7d8f6237f2a7564e17973d9f5bd225aa00a608106c" "47284f31629397cef09b5f763093b05cc3a016219e7050aa4490f328398e99bd" "02f066d23cd9faa37b40487802969855595f1fcc8d3a31a3ca795daa37201f21" "971fdfbab524c3e896797255e67185f0a7386bc9875f07d0e5a4fbbdebb1c498" "f55abc032de4012ab8ad7eb105081b842e0e33a6ac76b768de302aac00970e4a" "8d2bfaae8e1fd2407ed91693b51c9d8549e088e6e7782e8f6a494c7324bb2391" "798d590d01a6f8f3a3d271d6174a4015b67cc56052d8e9504c26c5d135c717ce" "f3bb8d4b4eb19b0bf37220c75290ae2414fe17609aa8f6aef7789fc6a1618e78" "d5377f0e4c9e8552dbf37871833733d4f28024aa98f9b83706cd6c74ce383eca" "1d6a3012bc692ef38b81793d45032db33eab37645dcedc4f1bf7d0b7cf022d1b" "5bfd841dd5155e98e8e5ed30f2000b986858213b290af5e4f41fb1a981a35ac2" "eeebb8760eb584567f5bcd8508b75b369ba67817c8f7ec6d5093a1aa8c55779b" "425870cc1663c91047203407036bf159587244591e6ac9acc15cb5bd8f37dbd5" "edd734a436b02d77ef75c47d7afbb6ca1ae5897a6a5c1b95423ce100bf9d3117" "a65f7d2bf7805747ac8b6d8a3a5f612310a768b8eced07f74b4c5baa2abee0dd" "802e7a1f59c36b0bebdc07efc6cd31d89bd4f864f153a6ef0b7d4eae617d5eab" "e5860e977cb41771eba4d046812f8983852d9ce50af0eb861b1d17f1725e6a8d" "66d17580694f557810782323f7300d0141b3e7b75980bf58dbd20285fab263f9" "f1a730c87b8cce29da188a5b7ce0e10b8486a610ff86e9a8e3e3b182f3be4528" "07cda797d373fb8ebe95e6523917206a1ade362cdf09cadddb26d229c09e7a55" "aa328acdf023066492e4584e8b586ff97596af29f1fc9f6804fb2097f2c76bf3" "60742fbe4bc1777ab92e37bb892cfac216092fd2ca66161fbacadffd0884bdd4" "5086409627a354e868a669fb02b1b00c3febc790efba49e69b2afcafc1d616b4" "5f18a938ab14286b2da7764974cfe8e1215dc12a2fc17fa7ba8b3bd0f2256613" "9fad772a1ad13df74806c13504c6b5df2cc222c91ee8f883fed77cc1c4ac2f5b" "2d8a894998f931237e4d3b774e080092450b7b01d449cb777b558ecaedb0a49b" "24cef59ef50cd46504ec7bd443ab45b5b062448c1a3be31723a0433315e285c4" "f0b8f0479d7b9ec451d215fd731f583e410e5a58907338531cf6c282abd6f4c1" "cd3a9ef301a54f4b27b106fd0ba9702d826c08a03d0ba1c6fb182dece503b526" "e2b8e449040fdbcaab8343af919cc93cd00c9a32f6bb15e574b6fc226bcc2529" "ec013d20292a08448fc6cc8917f4db308a3ff75cc059eec84eaedb3480e78a88" "31be917e7ac0b4a2b715c4a2858b46658630c6cbe1a1092b594d84ea30923d0e" "ccd03a22a0a66d11b275148ee7b3c358295117d5d17dce4965d38e2ce9370196" "e6bd2df77fd1edd2cefc7f5d29db00d4640c677da0f1934cc3445818d1b0784b" "cb9f954ea4193568593072ca39fdcb680205f80f8b3c7711e490cf9ef9ef83ba" "44704a58a4e81e4c4159f4045484515ab5ac472af2d6f40da3b580ca9639c3e9" "ce59b2696a8cac082069e45dc609850a4c696f370e64f2a7cf2bb416528b979f" "6c3fa5ae2483817a63f4d96af79250e8df48aa43dfd8db31bf805bba7b0e3d17" "a872cd5d932186e242fa4036a07f862e62694666438d42d06eb62497b84e757f" "e76da062cd34b227bbf2ce68dd7007301d4c56d8fe026c2460b7b27c4bb1db9e" "fddf128e283fa3440cd9bdf8873c65f2a8e82da46ac32837d623e854570a5a67" "185e6964ae820be6f9c6072a56fbd083a625ab35095a10a47455623ca5b2d383" "8f034ff240bfe21257f557c61ea444c300450e84e187885802dc9fee7d12fa5d" default)))
+ '(display-buffer-alist (quote (("shell" display-buffer-same-window (nil)))))
+ '(flycheck-check-syntax-automatically (quote (save mode-enabled)))
+ '(flycheck-perl-include-path
+   (quote
+    ("/Users/schellj/gtperl" "~/gtperl" "/Users/schellj/src/gt-core/lib" "~/src/gt-core/lib")))
+ '(git-commit-summary-max-length 100)
+ '(global-flycheck-mode nil)
+ '(global-whitespace-mode t)
+ '(helm-mode nil)
+ '(indent-tabs-mode nil)
+ '(line-number-mode nil)
+ '(magit-branch-arguments nil)
+ '(magit-commit-arguments nil)
+ '(magit-commit-ask-to-stage t)
+ '(magit-commit-extend-override-date nil)
+ '(magit-commit-reword-override-date nil)
+ '(magit-diff-expansion-threshold 1.0)
+ '(magit-diff-refine-hunk (quote all))
+ '(magit-diff-section-arguments (quote ("--no-ext-diff")))
+ '(magit-popup-show-common-commands t)
+ '(magit-popup-use-prefix-argument (quote default))
+ '(magit-process-popup-time -1)
+ '(magit-revert-buffers (quote silent) t)
+ '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
+ '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control)))))
+ ;; '(mu4e-headers-fields
+ ;;   (quote
+ ;;    ((:maildir . 8)
+ ;;     (:human-date . 12)
+ ;;     (:from . 22)
+ ;;     (:subject))))
+ ;; '(mu4e-html2text-command "w3m -T text/html")
+ '(ns-antialias-text t)
+ '(ns-auto-hide-menu-bar nil)
+ '(ns-use-native-fullscreen t)
+ '(package-selected-packages
+   (quote
+    ;; mu4e-maildirs-extension
+    (w3m ucs-utils ucs-cmds flim apel offlineimap go-mode python-mode highlight-numbers exec-path-from-shell spinner perlcritic flymake-perlcritic flycheck php-mode magit js2-mode cperl-mode)))
+ '(py-tab-indent t)
+ '(scroll-bar-mode nil)
+ '(switch-to-buffer-preserve-window-point t)
+ '(tab-width 4)
+ '(vc-git-diff-switches "-b")
+ '(whitespace-style
+   (quote
+    (face trailing tabs empty indentation::space indentation space-after-tab::tab space-after-tab::space space-after-tab space-before-tab::tab space-before-tab::space space-before-tab))))
 
 (when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  (package-initialize))
+  (unless package-archive-contents
+    (package-refresh-contents))
+  (package-autoremove)
+  (package-install-selected-packages))
 
 ;; (add-to-list 'c-offsets-alist '(arglist-close . c-lineup-close-paren))
 (add-to-list 'auto-mode-alist '("/architect.*view" . js2-mode))
@@ -99,71 +166,9 @@
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 (setq create-lockfiles nil)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(blink-cursor-blinks -1)
- '(c-tab-always-indent t)
- '(comint-scroll-to-bottom-on-input t)
- '(cperl-break-one-line-blocks-when-indent nil)
- '(cperl-fix-hanging-brace-when-indent nil)
- '(cperl-indent-comment-at-column-0 t)
- '(cperl-indent-level 4)
- '(cperl-indent-parens-as-block t)
- '(cperl-indent-subs-specially nil)
- '(cperl-tab-always-indent t)
- '(cursor-type (quote box))
- '(custom-safe-themes
-   (quote
-    ("5a43d88aec40a820034949fd87cf2435b31680134062bfa288569a9d1b54cb81" "2214f118823232b9cb67ab7efee814fd4f8c6a7ff1129ae812730ef42dfa63a1" "f36f1114fd0c8c3256a01f778cfff4c42f11164d1c078b28dd76c5ec22c3e96e" "b54249205cf62ee5f7486adadb22147e34d534812889d8c8f3655283136d8e1c" "97846b744c29259a892fcc34e6c4491b5a45aea44942c00842f2231abb8238da" "e985232da392939348c9a8e9c842b0a00a7e705670290ed78deeafe0ace9d152" "cfccfee425958e436350031685a10cd6aa57556af78c6030e7d8f640c9e11eca" "1011e3a1284a771b3cedd0a151d2aa0aee331e18fa16e97cbd5e66d82cc4ca3f" "2f209bf70f3e7db1318a918e7ca96853b2479fea34099768657538f74501984d" "b038e5703838757ad1fb53f389e0d5bc2752aa609af8cab87814c10737fc4342" "8c285861ff09a59100dc343bbd1910541ccf46c8300fe43a3fcefaad40909fca" "6953ef9d809755080e5892c7cd520263cfe56ba8777c1797733ccea5469af553" "89c552817af45d88bd20dc19bf0ed04a0b924b3fd6f75b65b239e30613241d02" "07622b7f47e9ff112439bda64da7591015634d4558ddf1f13a7751e6d527db2d" "fa53251842abb9f2c55caf3454a6fd1d681086b35718995467559cc7d6b5d697" "6f7bef43b031da5a1be3d79b974e3813f0bd66dce61e951a69a6965c999d57d7" "8ef8219578f32fad8d0223463d7f23731027af202859e06ec5c57cffca94883c" "31eee636fd72dac6223abd847a800b6a26a0608d7c3e8576e944dfbd6d7f6476" "a6fa10b5583a520a82ecb13c1058871db244123cdea4b645ff8c09c9798d938b" "d275e09b4d53dc753324e32690b4e3279e1a407b292fdb2f4a42e89b491e3449" "a1df36e4d43f2452133e9b015d41869ddd49dfcc45277a1ca5089c920bd4950c" "3586825e7ddad049a04ef36d573f226ee9df2124b81164bf9aedbd1562b4487d" "a687d2eb3e97dca84b842178c8154c08725a5ff59ac09c943c0678a9fd991358" "c81df9c14a4793143d04b9af9f3c80207922f9a3f38ade7b55fa95eb25f7a678" "1c5ffd9e809e6da5f421206b5ea4bfee8015dd8d6781625d49d2c84723a56256" "61faab7500cec648f6dbe77fa6a6b36b96913ae51cced47e63f85f312549a6ed" "75be5c4b8f9c38d1c865dcffd9271c0c92836d09e2397c30017c6f9a175f9810" "0cd9f708df2a944f301003c1980bdaa7315f706264d965f51da1a5e40954ef15" "7263d172afc1f3db5290ed35f7af47325e6bb5a655ad2663aaaa65ee4f482796" "0ff6e3e526c57501b580d7d73dd07327b0bc7d8178837a1fa0eb70312b799ccd" "b848abceb7cfb5e07abdcff49be82a99e1a30e6836473b9e11f36975929616df" "f9092c98f5335b65f61dcbc473f388a49bfbea7ced847757f0aa3f5f88856629" "771e786dfaab907f7933f76a52fd8a00b5aa5872ee0d6e698c4bf3c9eba08f4b" "fb5752fd6db922cf0280cb7d8f6237f2a7564e17973d9f5bd225aa00a608106c" "47284f31629397cef09b5f763093b05cc3a016219e7050aa4490f328398e99bd" "02f066d23cd9faa37b40487802969855595f1fcc8d3a31a3ca795daa37201f21" "971fdfbab524c3e896797255e67185f0a7386bc9875f07d0e5a4fbbdebb1c498" "f55abc032de4012ab8ad7eb105081b842e0e33a6ac76b768de302aac00970e4a" "8d2bfaae8e1fd2407ed91693b51c9d8549e088e6e7782e8f6a494c7324bb2391" "798d590d01a6f8f3a3d271d6174a4015b67cc56052d8e9504c26c5d135c717ce" "f3bb8d4b4eb19b0bf37220c75290ae2414fe17609aa8f6aef7789fc6a1618e78" "d5377f0e4c9e8552dbf37871833733d4f28024aa98f9b83706cd6c74ce383eca" "1d6a3012bc692ef38b81793d45032db33eab37645dcedc4f1bf7d0b7cf022d1b" "5bfd841dd5155e98e8e5ed30f2000b986858213b290af5e4f41fb1a981a35ac2" "eeebb8760eb584567f5bcd8508b75b369ba67817c8f7ec6d5093a1aa8c55779b" "425870cc1663c91047203407036bf159587244591e6ac9acc15cb5bd8f37dbd5" "edd734a436b02d77ef75c47d7afbb6ca1ae5897a6a5c1b95423ce100bf9d3117" "a65f7d2bf7805747ac8b6d8a3a5f612310a768b8eced07f74b4c5baa2abee0dd" "802e7a1f59c36b0bebdc07efc6cd31d89bd4f864f153a6ef0b7d4eae617d5eab" "e5860e977cb41771eba4d046812f8983852d9ce50af0eb861b1d17f1725e6a8d" "66d17580694f557810782323f7300d0141b3e7b75980bf58dbd20285fab263f9" "f1a730c87b8cce29da188a5b7ce0e10b8486a610ff86e9a8e3e3b182f3be4528" "07cda797d373fb8ebe95e6523917206a1ade362cdf09cadddb26d229c09e7a55" "aa328acdf023066492e4584e8b586ff97596af29f1fc9f6804fb2097f2c76bf3" "60742fbe4bc1777ab92e37bb892cfac216092fd2ca66161fbacadffd0884bdd4" "5086409627a354e868a669fb02b1b00c3febc790efba49e69b2afcafc1d616b4" "5f18a938ab14286b2da7764974cfe8e1215dc12a2fc17fa7ba8b3bd0f2256613" "9fad772a1ad13df74806c13504c6b5df2cc222c91ee8f883fed77cc1c4ac2f5b" "2d8a894998f931237e4d3b774e080092450b7b01d449cb777b558ecaedb0a49b" "24cef59ef50cd46504ec7bd443ab45b5b062448c1a3be31723a0433315e285c4" "f0b8f0479d7b9ec451d215fd731f583e410e5a58907338531cf6c282abd6f4c1" "cd3a9ef301a54f4b27b106fd0ba9702d826c08a03d0ba1c6fb182dece503b526" "e2b8e449040fdbcaab8343af919cc93cd00c9a32f6bb15e574b6fc226bcc2529" "ec013d20292a08448fc6cc8917f4db308a3ff75cc059eec84eaedb3480e78a88" "31be917e7ac0b4a2b715c4a2858b46658630c6cbe1a1092b594d84ea30923d0e" "ccd03a22a0a66d11b275148ee7b3c358295117d5d17dce4965d38e2ce9370196" "e6bd2df77fd1edd2cefc7f5d29db00d4640c677da0f1934cc3445818d1b0784b" "cb9f954ea4193568593072ca39fdcb680205f80f8b3c7711e490cf9ef9ef83ba" "44704a58a4e81e4c4159f4045484515ab5ac472af2d6f40da3b580ca9639c3e9" "ce59b2696a8cac082069e45dc609850a4c696f370e64f2a7cf2bb416528b979f" "6c3fa5ae2483817a63f4d96af79250e8df48aa43dfd8db31bf805bba7b0e3d17" "a872cd5d932186e242fa4036a07f862e62694666438d42d06eb62497b84e757f" "e76da062cd34b227bbf2ce68dd7007301d4c56d8fe026c2460b7b27c4bb1db9e" "fddf128e283fa3440cd9bdf8873c65f2a8e82da46ac32837d623e854570a5a67" "185e6964ae820be6f9c6072a56fbd083a625ab35095a10a47455623ca5b2d383" "8f034ff240bfe21257f557c61ea444c300450e84e187885802dc9fee7d12fa5d" default)))
- '(display-buffer-alist (quote (("shell" display-buffer-same-window (nil)))))
- '(flycheck-check-syntax-automatically (quote (save mode-enabled)))
- '(flycheck-perl-include-path
-   (quote
-    ("/Users/schellj/gtperl" "~/gtperl" "/Users/schellj/src/gt-core/lib" "~/src/gt-core/lib")))
- '(git-commit-summary-max-length 100)
- '(global-flycheck-mode nil)
- '(global-whitespace-mode t)
- '(helm-mode nil)
- '(indent-tabs-mode nil)
- '(line-number-mode nil)
- '(magit-branch-arguments nil)
- '(magit-commit-arguments nil)
- '(magit-commit-ask-to-stage t)
- '(magit-commit-extend-override-date nil)
- '(magit-commit-reword-override-date nil)
- '(magit-diff-expansion-threshold 1.0)
- '(magit-diff-refine-hunk (quote all))
- '(magit-diff-section-arguments (quote ("--no-ext-diff")))
- '(magit-popup-show-common-commands t)
- '(magit-popup-use-prefix-argument (quote default))
- '(magit-process-popup-time -1)
- '(magit-revert-buffers (quote silent) t)
- '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
- '(mouse-wheel-scroll-amount (quote (1 ((shift) . 5) ((control)))))
- '(mu4e-headers-fields
-   (quote
-    ((:maildir . 8)
-     (:human-date . 12)
-     (:from . 22)
-     (:subject))))
- '(mu4e-html2text-command "w3m -T text/html")
- '(ns-antialias-text t)
- '(ns-auto-hide-menu-bar nil)
- '(ns-use-native-fullscreen t)
- '(package-selected-packages
-   (quote
-    (w3m ucs-utils ucs-cmds flim apel mu4e-maildirs-extension offlineimap go-mode python-mode highlight-numbers exec-path-from-shell spinner perlcritic flymake-perlcritic flycheck php-mode magit js2-mode cperl-mode)))
- '(py-tab-indent t)
- '(scroll-bar-mode nil)
- '(switch-to-buffer-preserve-window-point t)
- '(tab-width 4)
- '(vc-git-diff-switches "-b")
- '(whitespace-style
-   (quote
-    (face trailing tabs empty indentation::space indentation space-after-tab::tab space-after-tab::space space-after-tab space-before-tab::tab space-before-tab::space space-before-tab))))
+(require 'ffap)
+(add-to-list 'ffap-alist '(shell-mode . ffap-gits-src))
+(add-to-list 'ffap-alist '(shell-mode . ffap-gits-current))
 
 ;; (defadvice cperl-backward-to-start-of-continued-exp (after indentation-fix)
 ;;   (and (not (memq char-after '(?\) ?\})))
@@ -353,6 +358,7 @@
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 (if (memq window-system '(mac ns))
     (progn
+      (require 'exec-path-from-shell)
       (exec-path-from-shell-initialize)
       (set-scroll-bar-mode nil)
       (load-theme 'schellj-gui t)
@@ -364,17 +370,11 @@
 (desktop-save-mode 1)
 (offlineimap)
 
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
-(require 'mu4e)
-(setq mu4e-mu-binary "/usr/local/bin/mu")
-(add-hook 'mu4e-view-mode-hook
-  (lambda()
-    ;; try to emulate some of the eww key-bindings
-    (local-set-key (kbd "<tab>") 'shr-next-link)
-    (local-set-key (kbd "<backtab>") 'shr-previous-link)))
-
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-(package-autoremove)
-(package-install-selected-packages)
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
+;; (require 'mu4e)
+;; (setq mu4e-mu-binary "/usr/local/bin/mu")
+;; (add-hook 'mu4e-view-mode-hook
+;;   (lambda()
+;;     ;; try to emulate some of the eww key-bindings
+;;     (local-set-key (kbd "<tab>") 'shr-next-link)
+;;     (local-set-key (kbd "<backtab>") 'shr-previous-link)))
