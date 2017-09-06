@@ -1,24 +1,24 @@
 [core]
-	excludesfile = /Users/schellj/.gitignore_global
-	pager = less -FRXK
+    excludesfile = /Users/schellj/.gitignore_global
+    pager = less -FRXK
 [user]
-	name = Justin Schell
-	email = justin@gudtech.com
+    name = Justin Schell
+    email = justin@gudtech.com
 [color]
-	ui = auto
+    ui = auto
 [push]
-	default = matching
+    default = matching
 [alias]
-	unpushed = !GIT_CURRENT_BRANCH=$(git name-rev --name-only HEAD) && git log me/$GIT_CURRENT_BRANCH..$GIT_CURRENT_BRANCH --oneline
-	df = diff -w --color-words
+    unpushed = !GIT_CURRENT_BRANCH=$(git name-rev --name-only HEAD) && git log me/$GIT_CURRENT_BRANCH..$GIT_CURRENT_BRANCH --oneline
+    df = diff -w --color-words
 [filter "media"]
-	clean = git media clean %f
-	smudge = git media smudge %f
-	required = true
+    clean = git media clean %f
+    smudge = git media smudge %f
+    required = true
 [diff]
-	algorithm = histogram
+    algorithm = histogram
 [color "diff"]
-	old = blue black bold
-	new = yellow black bold
-	meta = cyan black
-	frag = magenta black
+    old = blue black bold
+    new = yellow black bold
+    meta = cyan black
+    frag = magenta black
