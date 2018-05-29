@@ -64,6 +64,7 @@ export GIT_PS1_SHOWCOLORHINTS=
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_DESCRIBE_STYLE="branch"
 source ~/.git-prompt.sh
+source ~/.kube-prompt.sh
 
 # if [ "$color_prompt" = yes ]; then
 #     PS1='\e[1;36;40m[${debian_chroot:+($debian_chroot)}\e[31m\W\e[32m$(__git_ps1)\e[36m]\$\e[8m \e[m'
@@ -73,7 +74,7 @@ source ~/.git-prompt.sh
 # fi
 # unset color_prompt force_color_prompt
 
-PS1='\[\e[36;40m\][\[\e[32m\]\W\[\e[31m\]$(__git_ps1)\[\e[36m\]]\$\[\e[8m\] \[\e[m\]'
+PS1='\[\e[1;36;40m\][\[\e[1;32m\]\W\[\e[1;31m\]$(__git_ps1)$(__kube_ps1)\[\e[1;36m\]]\$\[\e[1;8m\] \[\e[m\]'
 
 # case "$TERM" in
 # xterm*|rxvt*)
