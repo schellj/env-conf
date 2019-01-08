@@ -114,10 +114,17 @@ sub render {
             %status_maxes = (
                 %status_maxes,
                 id => max($status_maxes{id} // 0, length($status->{id})),
-                container_status => max($status_maxes{container_status} // 0, length($status->{container_status})),
-                pod_status => max($status_maxes{pod_status} // 0, length($_STATUS_ABBR{$status->{pod_status}} // $status->{pod_status})),
+                container_status => max(
+                    $status_maxes{container_status} // 0, length($status->{container_status})),
+                pod_status => max(
+                    $status_maxes{pod_status} // 0,
+                    length($_STATUS_ABBR{$status->{pod_status}} // $status->{pod_status}),
+                ),
                 restarts => max($status_maxes{restarts} // 0, length($status->{restarts})),
-                age => max($status_maxes{age} // 0, length($status->{age} eq '<invalid>' ? 'x' : $status->{age})),
+                age => max(
+                    $status_maxes{age} // 0,
+                    length($status->{age} eq '<invalid>' ? 'x' : $status->{age}),
+                ),
             );
 
             push @statuses, { pod => $status };
@@ -165,7 +172,8 @@ sub render {
             }
             else {
                 $buffer .= (
-                    $status->{pod}{prefix} eq $updated_pod_prefix && $status->{pod}{id} eq $updated_pod_id
+                    $status->{pod}{prefix} eq $updated_pod_prefix
+                        && $status->{pod}{id} eq $updated_pod_id
                         ? $_HIGHLIGHT_FOREGROUND_COLOR
                         : $_DEFAULT_FOREGROUND_COLOR
                     ) . $_STATUS_BACKGROUND_COLOR{$i % 2 == 0 ? 1 : 0}{$status->{pod}{pod_status}}
@@ -173,9 +181,15 @@ sub render {
                     . join ' ',
                     sprintf("%$status_maxes{id}s", $status->{pod}{id}),
                     sprintf("%$status_maxes{container_status}s", $status->{pod}{container_status}),
-                    sprintf("%$status_maxes{pod_status}s", $_STATUS_ABBR{$status->{pod}{pod_status}} || $status->{pod}{pod_status}),
+                    sprintf(
+                        "%$status_maxes{pod_status}s",
+                        $_STATUS_ABBR{$status->{pod}{pod_status}} || $status->{pod}{pod_status},
+                    ),
                     sprintf("%$status_maxes{restarts}s", $status->{pod}{restarts}),
-                    sprintf("%$status_maxes{age}s", $status->{pod}{age} eq '<invalid>' ? 'x' : $status->{pod}{age})
+                    sprintf(
+                        "%$status_maxes{age}s",
+                        $status->{pod}{age} eq '<invalid>' ? 'x' : $status->{pod}{age},
+                    )
                     . ' ';
             }
 
