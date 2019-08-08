@@ -134,3 +134,10 @@ From the window at the lower right corner, select the one at the upper left."
 
 (defun ffap-gits-src (name)
   (concat "~/src/" (ffap-gits name) "/" name))
+
+(defun smerge-try-smerge ()
+  (save-excursion
+    (goto-char (point-min))
+    (when (re-search-forward "^<<<<<<< " nil t)
+      (require 'smerge-mode)
+      (smerge-mode 1))))

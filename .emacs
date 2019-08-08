@@ -402,6 +402,9 @@
       (fringe-mode '(2 . 0)))
   (load-theme 'schellj-terminal t))
 
+(add-hook 'find-file-hook 'smerge-try-smerge)
+(add-hook 'after-revert-hook 'smerge-try-smerge)
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
