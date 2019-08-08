@@ -41,9 +41,9 @@ key             binding
 C-c b           gt-perl-call-super
 C-c f           gt-perl-find-module
 C-c p           gt-perl-man-builtin
-C-c r		gt-perl-refactor-rename-method
-C-c s		gt-perl-insert-method
-C-c v		gt-perl-insert-variable
+C-c r           gt-perl-refactor-rename-method
+C-c s           gt-perl-insert-method
+C-c v           gt-perl-insert-variable
 C-c u           gt-perl-insert-use
 C-c w           gt-perl-insert-role
 C-c h           gt-perl-insert-has
