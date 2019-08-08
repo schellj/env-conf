@@ -55,3 +55,31 @@ function watch_container {
     container=$1
     while sleep 3; do docker_id=$(docker ps -qf name=$container); if [ "x$docker_id" != "x" ]; then docker attach $container; else echo .; fi; done
 }
+
+function kube_bounce_deployment {
+	deployment=$1
+
+	command=$(echo kubectl patch deployment $deployment -p "'{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date --utc '+%FT%TZ'`\"}}}}'")
+	echo $command
+	eval $command
+}
+
+function kube_bounce_statefulset {
+    statefulset=$1
+
+	command=$(echo kubectl patch statefulset $statefulset -p "'{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date --utc '+%FT%TZ'`\"}}}}'")
+	echo $command
+	eval $command
+}
+
+function kube_force_delete_pod {
+    pod=$1
+
+    delete_command=$(echo kubectl delete pods $pod --force --grace-period=0)
+    echo $delete_command
+    eval $delete_command
+
+    patch_command=$(kubectl patch pod $pod -p '{"metadata":{"finalizers":null}}')
+    echo $patch_command
+    eval $patch_command
+}
