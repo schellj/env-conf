@@ -134,23 +134,6 @@
    ;; highlight-symbols
    ))
 
-(defcustom schellj-theme-kit nil
-  "Non-nil means load schellj-theme-kit UI component"
-  :type 'boolean
-  :group 'schellj-theme)
-
-(defcustom schellj-theme-kit-file
-  (concat (file-name-directory
-           (or (buffer-file-name) load-file-name))
-          "schellj-theme-kit.el")
-  "schellj-theme-kit-file"
-  :type 'string
-  :group 'schellj-theme)
-
-(if (and schellj-theme-kit
-         (file-exists-p schellj-theme-kit-file))
-    (load-file schellj-theme-kit-file))
-
 ;;;###autoload
 (and load-file-name
      (boundp 'custom-theme-load-path)
