@@ -34,8 +34,10 @@
 (let ((class '((class color) (min-colors 89)))
       ;; schellj palette
       (schellj-white          "#ffffff")
-      (schellj-fg             "#fafaf4")
+      (schellj-fg             "#f8f8f0")
       (schellj-red            "#ff0000")
+      (schellj-darkred        "#700000")
+      (schellj-darkred2       "#903333")
       (schellj-pink           "#ff005c")
       (schellj-orange+5       "#ef5939")
       (schellj-orange         "#FC9317")
@@ -46,12 +48,14 @@
       (schellj-chartreuse     "#a6e22e")
       (schellj-lime           "#00ff00")
       (schellj-green          "#008000")
+      (schellj-brightgreen    "#00a000")
       (schellj-darkwine       "#1e0010")
       (schellj-maroon         "#800000")
       (schellj-wine           "#960050")
       (schellj-teal           "#008080")
       (schellj-aqua           "#00ffff")
       (schellj-blue           "#66d9ef")
+      (schellj-darkblue       "#4455aa")
       (schellj-medium-blue    "#3333ff")
       (schellj-lightblue      "#8888ff")
       (schellj-slateblue      "#7070f0")
@@ -64,8 +68,10 @@
       (schellj-grey+2         "#403d3d")
       (schellj-grey+3         "#4c4745")
       (schellj-grey+5         "#232526")
-      (schellj-bg             "#292929")
+      (schellj-bg             "#000000")
+      (schellj-bg-old         "#1b1b1b")
       (schellj-bg-1           "#191919")
+      (schellj-bg-2           "#693939")
       (schellj-grey+10        "#080808")
       (schellj-dark           "#000000")
       (schellj-base01         "#465457")
@@ -76,18 +82,34 @@
    'schellj-gui
 
    ;; base
-   `(default ((t (:background ,schellj-bg :foreground ,schellj-fg))))
+   `(default ((t (:inherit nil
+                           :stipple nil
+                           :background ,schellj-bg
+                           :foreground ,schellj-fg
+                           :inverse-video nil
+                           :box nil
+                           :strike-through nil
+                           :overline nil
+                           :underline nil
+                           :slant normal
+                           :weight normal
+                           :height 120
+                           :width normal
+                           :foundry "nil"
+                           :family "Monaco"))))
+   `(term ((t (:background ,schellj-bg :foreground ,schellj-fg))))
    `(cursor ((t (:background ,schellj-grey-2 :foreground ,schellj-bg))))
    `(fringe ((t (:foreground ,schellj-grey+2 :background "#1e1e1e"))))
-   `(highlight ((t (:background ,schellj-grey))))
+   `(highlight ((t (:background ,schellj-grey+2))))
+   `(magit-diff-context-highlight ((t (:background ,schellj-grey+2))))
    `(region ((t (:background  ,schellj-grey+2))
              (t (:inverse-video t))))
    `(warning ((t (:foreground ,schellj-palevioletred))))
 
    ;; font lock
    `(font-lock-builtin-face ((t (:foreground ,schellj-chartreuse))))
-   `(font-lock-comment-face ((t (:foreground ,schellj-base01))))
-   `(font-lock-comment-delimiter-face ((t (:foreground ,schellj-base01))))
+   `(font-lock-comment-face ((t (:foreground ,schellj-grey-1))))
+   `(font-lock-comment-delimiter-face ((t (:foreground ,schellj-grey-1))))
    `(font-lock-constant-face ((t (:foreground ,schellj-purple))))
    `(font-lock-doc-string-face ((t (:foreground ,schellj-darkgoldenrod))))
    `(font-lock-function-name-face ((t (:foreground ,schellj-lightblue))))
@@ -99,18 +121,19 @@
    `(font-lock-string-face ((t (:foreground ,schellj-darkgoldenrod))))
    `(font-lock-type-face ((t (:foreground ,schellj-lightaqua))))
    `(font-lock-variable-name-face ((t (:foreground ,schellj-orange))))
-   `(font-lock-warning-face ((t (:foreground ,schellj-palevioletred))))
+   `(font-lock-warning-face ((t (:foreground nil :background ,schellj-bg-2))))
+   `(column-enforce-face ((t (:foreground nil :background ,schellj-darkred))))
 
    ;; mode line
    `(mode-line ((t (:foreground ,schellj-fg
-                                :background ,schellj-grey+2
+                                :background "#204020"
                                 :box nil))))
    ;; `(mode-line-buffer-id ((t (:weight bold))))
    `(mode-line-inactive ((t (:foreground ,schellj-fg
-                                         :background ,schellj-bg-1
+										 :background ,schellj-bg-1
                                          :box nil))))
 
-   `(vertical-border ((t (:foreground ,schellj-grey+2 :background ,schellj-bg))))
+   `(vertical-border ((t (:foreground "#204020" :background ,schellj-bg))))
 
    ;; search
    `(isearch ((t (:foreground ,schellj-dark :background ,schellj-wheat))))
@@ -126,12 +149,21 @@
    `(cperl-hash-face ((,class (:foreground ,schellj-red :background ,schellj-dark :slant normal))))
    `(cperl-array-face ((,class (:foreground ,schellj-yellow :background ,schellj-dark :slant normal))))
 
+   `(col-highlight ((t (:background ,schellj-grey+3)) t))
+   `(vline ((t (:background ,schellj-grey+3)) t))
    ;; TODO
    ;; ido-mode
    ;; flycheck
    ;; show-paren
    ;; rainbow-delimiters
    ;; highlight-symbols
+   `(git-gutter-fr:modified ((t (:height 50 :foreground ,schellj-blue :background ,schellj-blue))))
+   `(git-gutter-fr:added ((t (:height 50 :foreground ,schellj-brightgreen :background ,schellj-brightgreen))))
+   `(git-gutter-fr:deleted ((t (:height 50 :foreground ,schellj-red :background ,schellj-red))))
+   `(git-gutter-fr:unchanged ((t (:height 50 :foreground ,schellj-dark :background ,schellj-dark))))
+
+   `(show-paren-match ((t :background ,schellj-darkblue)))
+   `(show-paren-mismatch ((t :background ,schellj-darkred2)))
    ))
 
 ;;;###autoload
