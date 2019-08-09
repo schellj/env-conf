@@ -18,7 +18,16 @@
 [diff]
     algorithm = histogram
 [color "diff"]
-    old = blue black bold
-    new = yellow black bold
-    meta = cyan black
-    frag = magenta black
+    old = blue bold
+    new = yellow bold
+    meta = cyan
+    frag = magenta
+[color "diff-highlight"]
+    oldNormal = "\\x1b[1;38;5;103;48;5;0m"
+    oldHighlight = "\\x1b[1;38;5;12;48;5;236m"
+    newNormal = "\\x1b[1;38;5;187;48;5;0m"
+    newHighlight = "\\x1b[1;38;5;11;48;5;236m"
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[github]
+	user = schellj
