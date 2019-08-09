@@ -152,8 +152,7 @@
         remote-file-name-inhibit-cache nil
         vc-ignore-dir-regexp (format "%s\\|%s"
                                      vc-ignore-dir-regexp
-                                     tramp-file-name-regexp)
-        tramp-verbose 100))
+                                     tramp-file-name-regexp)))
 
 (use-package magit)
 
