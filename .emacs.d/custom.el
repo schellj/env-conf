@@ -32,7 +32,7 @@
  '(blink-cursor-blinks -1)
  '(blink-cursor-mode t)
  '(c-tab-always-indent t)
- '(clean-buffer-list-delay-general 7)
+ '(clean-buffer-list-delay-general 3)
  '(column-enforce-column 100)
  '(column-highlight-mode nil)
  '(column-number-mode t)
