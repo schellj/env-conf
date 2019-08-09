@@ -1,6 +1,9 @@
 [core]
     excludesfile = ~/.gitignore_global
-    pager = less -FRXK
+[pager]
+    log = diff-highlight | less -FRXK
+    show = diff-highlight | less -FRXK
+    diff = diff-highlight | less -FRXK
 [user]
     name = Justin Schell
     email = justin@gudtech.com
