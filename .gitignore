@@ -1,3 +1,14 @@
 .emacs.d/backup/*
 .emacs.d/elpa/*
 .emacs.swp
+.emacs.d/#*
+.emacs.d/.emacs.desktop*
+.emacs.d/.last-package-update-day
+.emacs.d/forge-database.sqlite
+.emacs.d/projectile-bookmarks.eld
+.emacs.d/projectile.cache
+.emacs.d/recentf
+.emacs.d/tramp
+.emacs.d/.persistent-scratch
+.emacs.d/transient/
+.emacs.d/url/
