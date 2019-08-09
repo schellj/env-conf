@@ -445,9 +445,7 @@
 (window-divider-mode t)
 
 (set-display-table-slot standard-display-table 'wrap ?·)
-;; (set-display-table-slot standard-display-table 'vertical-border ?│)
 
-;(add-hook 'after-init-hook #'global-flycheck-mode)
 (if (memq window-system '(mac ns))
     (progn
       (require 'exec-path-from-shell)
@@ -465,5 +463,3 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
-(add-hook 'find-file-hook 'smerge-try-smerge t)
-(add-hook 'after-revert-hook 'smerge-try-smerge t)
