@@ -384,26 +384,33 @@
   (spaceline-define-segment buffer-line-count
     "<CURRENT_LINE>/<BUFFER_LINES> <COLUMN_NUMBER>"
     (format "%%l/%d %%c" (count-lines (point-min) (point-max))))
-  (spaceline-define-segment datetime
+  (defvar spaceline-time)
+  (defun set-spaceline-time ()
     (with-current-buffer (get-buffer "*scratch*")
-      (shell-command-to-string "echo -n $(TZ='America/Los_Angeles' date '+%a %b %d %I:%M%p')")))
-  (setq powerline-default-separator "rounded"
-        spaceline-separator-dir-left '(left . left)
-        spaceline-separator-dir-right '(right . right)
-        spaceline-highlight-face-func 'spaceline-highlight-face-modified
-        ring-bell-function `(lambda ()
-                              (invert-face 'mode-line)
-                              (run-with-timer 0.01 nil 'invert-face 'mode-line)
-                              (invert-face 'powerline-active1)
-                              (run-with-timer 0.01 nil 'invert-face 'powerline-active1)
-                              (invert-face 'powerline-active2)
-                              (run-with-timer 0.01 nil 'invert-face 'powerline-active2)
-                              (invert-face 'spaceline-modified)
-                              (run-with-timer 0.01 nil 'invert-face 'spaceline-modified)
-                              (invert-face 'spaceline-read-only)
-                              (run-with-timer 0.01 nil 'invert-face 'spaceline-read-only)
-                              (invert-face 'spaceline-unmodified)
-                              (run-with-timer 0.01 nil 'invert-face 'spaceline-unmodified)))
+      (setq spaceline-time (shell-command-to-string "echo -n $(TZ='America/Los_Angeles' date '+%I:%M%p')"))))
+  (run-with-timer 0 15 'set-spaceline-time)
+  (spaceline-define-segment datetime
+    spaceline-time)
+  (setq
+   spaceline-time "12:00AM"
+   spaceline-byte-compile t
+   powerline-default-separator "rounded"
+   spaceline-separator-dir-left '(left . left)
+   spaceline-separator-dir-right '(right . right)
+   spaceline-highlight-face-func 'spaceline-highlight-face-modified
+   ring-bell-function `(lambda ()
+                         (invert-face 'mode-line)
+                         (run-with-timer 0.01 nil 'invert-face 'mode-line)
+                         (invert-face 'powerline-active1)
+                         (run-with-timer 0.01 nil 'invert-face 'powerline-active1)
+                         (invert-face 'powerline-active2)
+                         (run-with-timer 0.01 nil 'invert-face 'powerline-active2)
+                         (invert-face 'spaceline-modified)
+                         (run-with-timer 0.01 nil 'invert-face 'spaceline-modified)
+                         (invert-face 'spaceline-read-only)
+                         (run-with-timer 0.01 nil 'invert-face 'spaceline-read-only)
+                         (invert-face 'spaceline-unmodified)
+                         (run-with-timer 0.01 nil 'invert-face 'spaceline-unmodified)))
   (spaceline-compile "jschell"
     '((buffer-modified :priority 98 :face highlight-face)
       (buffer-line-count :priority 97)
@@ -414,8 +421,7 @@
     '((selection-info :priority 95)
       (major-mode :priority 79)
       (global :when active :priority 94)
-      ;; (datetime :priority 92)
-      ))
+      (datetime :priority 92)))
   (setq-default mode-line-format '("%e" (:eval (spaceline-ml-jschell))))
   :custom-face
   (mode-line ((t (:background "#444477"))))
@@ -425,7 +431,7 @@
   (powerline-inactive1 ((t (:foreground "#bbbbbb" :background "#555555"))))
   (powerline-inactive2 ((t (:foreground "#bbbbbb" :background "#222222"))))
   (spaceline-modified ((t (:foreground "#000000" :background "#ccaa33"))))
-  (spaceline-read-only ((t (:foreground "#000000" :background "#ff0000"))))
+  (spaceline-read-only ((t (:foreground "#000000" :background "#dd0101"))))
   (spaceline-unmodified ((t (:foreground "#000000" :background "#8888bb")))))
 
 (global-font-lock-mode t)
