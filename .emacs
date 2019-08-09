@@ -269,10 +269,12 @@
    ("M-n" . sp-forward-sexp))
   :custom-face
   (sp-show-pair-enclosing ((t (:inherit highlight))))
+  :config
+  (setq sp-show-pair-from-inside t
+        sp-autoinsert-pair nil)
   :init
   (smartparens-global-mode)
-  (show-smartparens-global-mode)
-  (smartparens-global-mode 0))
+  (show-smartparens-global-mode))
 
 (use-package cperl-mode
   :mode ("/t/.*\\.t\\'" "\\.pm\\'" "\\.pl\\'")
