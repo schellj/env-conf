@@ -281,6 +281,13 @@
   (cperl-mode . (lambda () (add-hook 'before-save-hook 'whitespace-cleanup nil t)))
   :config
   (setq
+   cperl-indent-level 4
+   cperl-break-one-line-blocks-when-indent nil
+   cperl-fix-hanging-brace-when-indent nil
+   cperl-indent-comment-at-column-0 t
+   cperl-indent-parens-as-block t
+   cperl-indent-subs-specially nil
+   cperl-tab-always-indent t
    cperl-close-paren-offset -4
    cperl-continued-statement-offset 4
    cperl-tab-always-indent t
