@@ -2,13 +2,14 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  (package-initialize))
+(setq load-prefer-newer t)
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
 
 (require 'auto-compile)
 (auto-compile-on-load-mode)
