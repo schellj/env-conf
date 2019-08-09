@@ -434,6 +434,10 @@
   (spaceline-read-only ((t (:foreground "#000000" :background "#dd0101"))))
   (spaceline-unmodified ((t (:foreground "#000000" :background "#8888bb")))))
 
+(use-package persistent-scratch
+  :init
+  (persistent-scratch-setup-default))
+
 (global-font-lock-mode t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
