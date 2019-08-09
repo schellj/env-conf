@@ -16,7 +16,7 @@
  '(powerline-inactive2 ((t (:foreground "#bbbbbb" :background "#222222"))))
  '(sp-show-pair-enclosing ((t (:inherit highlight))))
  '(spaceline-modified ((t (:foreground "#000000" :background "#ccaa33"))))
- '(spaceline-read-only ((t (:foreground "#000000" :background "#ff0000"))))
+ '(spaceline-read-only ((t (:foreground "#000000" :background "#dd0101"))))
  '(spaceline-unmodified ((t (:foreground "#000000" :background "#8888bb"))))
  '(window-divider ((t (:foreground "#666666")))))
 
