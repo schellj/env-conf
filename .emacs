@@ -154,7 +154,26 @@
                                      vc-ignore-dir-regexp
                                      tramp-file-name-regexp)))
 
-(use-package magit)
+(use-package magit
+  :config
+  (setq magit-branch-arguments nil
+        magit-commit-arguments nil
+        magit-commit-ask-to-stage t
+        magit-commit-extend-override-date nil
+        magit-commit-reword-override-date nil
+        magit-diff-argument (quote
+                             ("--ignore-space-change" "--ignore-all-space" "--no-ext-diff"))
+        magit-diff-expansion-threshold 1.0
+        magit-diff-refine-hunk (quote all)
+        magit-diff-section-arguments (quote ("--no-ext-diff"))
+        magit-popup-show-common-commands t
+        magit-popup-use-prefix-argument (quote default)
+        magit-process-popup-time -1
+        magit-revert-buffers (quote silent)
+        magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
+  :init
+  (magit-auto-revert-mode)
+  (global-magit-file-mode))
 
 (use-package ivy
   :config
