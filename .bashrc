@@ -106,3 +106,4 @@ bind "set completion-ignore-case on"
 export PERLLIB="$HOME/gtperl"
 export PERL5LIB="$HOME/gtperl"
 export PERL_CPANM_OPT='--sudo'
+export MYSQL_PS1="[\u \d]$ "
