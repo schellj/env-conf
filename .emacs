@@ -29,7 +29,7 @@
 (setq custom-theme-load-path
       (append '( "~/.emacs.d/themes" ) custom-theme-load-path))
 (require 'gt-perl)
-(require 'perltidy)
+;; (require 'perltidy)
 ;; (require 'perltidy-mode)
 (defalias 'perl-mode 'cperl-mode)
 
