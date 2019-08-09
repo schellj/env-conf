@@ -29,8 +29,6 @@
 (setq custom-theme-load-path
       (append '( "~/.emacs.d/themes" ) custom-theme-load-path))
 (require 'gt-perl)
-;; (require 'perltidy)
-;; (require 'perltidy-mode)
 (defalias 'perl-mode 'cperl-mode)
 
 (load-library "keys.el")
@@ -83,39 +81,6 @@
       auto-save-list-file-prefix autosave-dir
       auto-save-file-name-transforms `((".*" ,autosave-dir t))
       create-lockfiles nil)
-
-(defun beep-on-alert-char (str)
- (if (string-match-p "\x7" str) (ding)))
-(add-hook 'comint-output-filter-functions 'beep-on-alert-char)
-
-(require 'dbus)
-
-(defun fsm-x-active-window ()
-  "Return the window ID of the current active window in X, as
-  given by the _NET_ACTIVE_WINDOW of the root window set by the
-  window-manager, or nil if not able to"
-  (if (eq (window-system) 'x)
-      (let ((x-active-window (x-window-property "_NET_ACTIVE_WINDOW" nil "WINDOW" 0 nil t)))
-    (string-to-number (format "%x00%x" (car x-active-window) (cdr x-active-window)) 16))
-    nil))
-
-(defun fsm-frame-outer-window-id (frame)
-  "Return the frame outer-window-id property, or nil if FRAME not of the correct type"
-  (if (framep frame)
-      (string-to-number
-       (frame-parameter frame 'outer-window-id))
-    nil))
-
-(defun fsm-frame-x-active-window-p (frame)
-  "Check if FRAME is is the X active windows
-  Returns t if frame has focus or nil if"
-  (if (framep frame)
-      (progn
-    (if (eq (fsm-frame-outer-window-id frame)
-        (fsm-x-active-window))
-        t
-      nil))
-    nil))
 
 (use-package auto-package-update
   :config
@@ -299,8 +264,6 @@
    cperl-lazy-help-time 10000
    cperl-merge-trailing-else nil
    cperl-under-as-char nil))
-;; (add-to-list 'auto-mode-alist '("\\.pm\\'" . perltidy-mode))
-;; (add-to-list 'auto-mode-alist '("\\.pl\\'" . perltidy-mode))
 
 (use-package js2-mode
   :mode ("/architect.*view" "\\.js\\'")
