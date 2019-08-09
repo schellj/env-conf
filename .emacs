@@ -333,7 +333,7 @@
   (setq
    counsel-find-file-ignore-regexp nil
    counsel-projectile-switch-project-action
-   (quote (16
+   (quote (1
            ("o" counsel-projectile-switch-project-action "jump to a project buffer or file")
            ("f" counsel-projectile-switch-project-action-find-file "jump to a project file")
            ("d" counsel-projectile-switch-project-action-find-dir "jump to a project directory")
