@@ -210,15 +210,13 @@
   :config
   (setq rainbow-delimiters-max-face-count 6)
   :custom-face
-  (rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "#ffffff"))))
-  (rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "#bbbbbb"))))
-  (rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "#eeeeee"))))
-  (rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "#aaaaaa"))))
-  (rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "#dddddd"))))
-  (rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "#999999"))))
-  (rainbow-delimiters-depth-7-face ((t (:inherit rainbow-delimiters-base-face :foreground "#66bbbb"))))
-  (rainbow-delimiters-depth-8-face ((t (:inherit rainbow-delimiters-base-face :foreground "#dddddd"))))
-  (rainbow-delimiters-depth-9-face ((t (:inherit rainbow-delimiters-base-face :foreground "#888888"))))
+  '(rainbow-delimiters-base-face ((t (:inherit default))))
+  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :background "#ccf8f8"))))
+  '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :background "#f8aaf8"))))
+  '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :background "#f8f8cc"))))
+  '(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :background "#aaf8f8"))))
+  '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :background "#f8ccf8"))))
+  '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :background "#f8f8aa"))))
   :hook
   ((cperl-mode emacs-lisp-mode) . rainbow-delimiters-mode))
 
