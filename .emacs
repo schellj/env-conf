@@ -235,6 +235,21 @@
   ("s-d r" . git-gutter:set-start-revision)
   ("s-d S" . git-gutter:statistic)
   :config
+  (setq
+   git-gutter-fr:added-sign "+"
+   git-gutter-fr:deleted-sign "-"
+   git-gutter-fr:diff-option "-w"
+   git-gutter-fr:hide-gutter t
+   git-gutter-fr:modified-sign "!"
+   git-gutter-fr:unchanged-sign " "
+   git-gutter-fr:visual-line t
+   git-gutter:added-sign "+"
+   git-gutter:deleted-sign "-"
+   git-gutter:diff-option "-w"
+   git-gutter:hide-gutter t
+   git-gutter:modified-sign "!"
+   git-gutter:unchanged-sign " "
+   git-gutter:visual-line t)
   (defhydra hydra-git-gutter (global-map "s-d" :pre (ignore-errors (git-gutter:popup-hunk)) :post (kill-matching-buffers-no-ask "*git-gutter:diff*"))
     "git-gutter"
     ("=" git-gutter:popup-hunk "hunk at cursor")
