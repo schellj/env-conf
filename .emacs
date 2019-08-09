@@ -10,6 +10,10 @@
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize))
 
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
