@@ -152,9 +152,7 @@
 
 (use-package auto-dim-other-buffers
   :config
-  (auto-dim-other-buffers-mode t)
-  :custom-face 
-  (auto-dim-other-buffers-face ((t (:foreground "#bbbbbb" :background "#222222")))))
+  (auto-dim-other-buffers-mode t))
 
 (use-package beacon
   :config
@@ -230,8 +228,6 @@
   :bind
   (("M-p" . sp-backward-sexp)
    ("M-n" . sp-forward-sexp))
-  :custom-face
-  (sp-show-pair-enclosing ((t (:inherit highlight))))
   :config
   (setq sp-show-pair-from-inside t
         sp-autoinsert-pair nil)
