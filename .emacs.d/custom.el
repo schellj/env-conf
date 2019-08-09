@@ -7,6 +7,7 @@
  '(auto-dim-other-buffers-face ((t (:foreground "#bbbbbb" :background "#222222"))))
  '(bold ((t (:weight normal))))
  '(comint-highlight-prompt ((t nil)))
+ '(cursor ((t (:inherit nil :background "#f8f8f8"))))
  '(eshell-prompt ((t nil)))
  '(mode-line ((t (:background "#444477"))))
  '(mode-line-inactive ((t (:foreground "#bbbbbb" :background "#444444"))))
