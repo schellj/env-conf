@@ -197,9 +197,9 @@
   (setq
    beacon-blink-when-focused t
    beacon-blink-when-window-scrolls nil
-   beacon-color "#333333"
+   beacon-color "#555555"
    beacon-mode t
-   beacon-size 100))
+   beacon-size 15))
 
 (use-package volatile-highlights
   :config
