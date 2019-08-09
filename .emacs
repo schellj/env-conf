@@ -448,6 +448,8 @@
     (progn
       (require 'exec-path-from-shell)
       (exec-path-from-shell-initialize)
+      (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+      (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
       (set-scroll-bar-mode nil)
       (load-theme 'schellj-gui t)
       (fringe-mode '(2 . 0)))
