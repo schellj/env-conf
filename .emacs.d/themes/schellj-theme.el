@@ -36,6 +36,7 @@
       (schellj-white          "#ffffff")
       (schellj-fg             "#fafaf4")
       (schellj-red            "#ff0000")
+      (schellj-darkred        "#700000")
       (schellj-pink           "#ff005c")
       (schellj-orange+5       "#ef5939")
       (schellj-orange         "#FC9317")
@@ -149,6 +150,7 @@
    `(cperl-hash-face ((,class (:foreground ,schellj-red :background ,schellj-dark :slant normal :weight normal))))
    `(cperl-array-face ((,class (:foreground ,schellj-yellow :background ,schellj-dark :slant normal :weight normal))))
 
+   '(column-enforce-face ((t (:background ,schellj-darkred))))
 
    ;; TODO
    ;; ido-mode
