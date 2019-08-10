@@ -134,6 +134,11 @@ From the window at the lower right corner, select the one at the upper left."
 
 (defun ffap-gits-src (name)
   (concat "~/src/" (ffap-gits name) "/" name))
+(require 'cl)
+(defun kill-matching-buffers-no-ask (regexp)
+  (cl-letf (((symbol-function 'kill-buffer-ask) #'kill-buffer))
+    (kill-matching-buffers regexp)))
+
 
 (defun smerge-try-smerge ()
   (save-excursion
