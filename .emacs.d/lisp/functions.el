@@ -134,6 +134,13 @@ From the window at the lower right corner, select the one at the upper left."
 
 (defun ffap-gits-src (name)
   (concat "~/src/" (ffap-gits name) "/" name))
+
+(defun what-face (pos)
+    (interactive "d")
+        (let ((face (or (get-char-property (point) 'read-face-name)
+            (get-char-property (point) 'face))))
+    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+
 (require 'cl)
 (defun kill-matching-buffers-no-ask (regexp)
   (cl-letf (((symbol-function 'kill-buffer-ask) #'kill-buffer))
