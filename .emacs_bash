@@ -1,2 +1,2 @@
-export GIT_PAGER=cat
+export GIT_PAGER="diff-highlight | cat"
 export PAGER=cat
