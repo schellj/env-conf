@@ -6,7 +6,7 @@
     diff = diff-highlight | less -FRXK
 [user]
     name = Justin Schell
-    email = justin@gudtech.com
+    email = justinmschell@gmail.com
 [color]
     ui = auto
 [push]
