@@ -51,7 +51,15 @@ From the window at the lower right corner, select the one at the upper left."
         (term-send-raw-string (kbd "C-l"))
         )))
 
-(defun term/shell (program &optional new-buffer-name)
+(defun term-toggle-input-mode ()
+  "Toggles term between line mode and char mode"
+  (interactive)
+  (if (equal major-mode 'term-mode)
+      (if (term-in-char-mode)
+          (term-line-mode)
+        (term-char-mode))))
+
+(defun term-shell (program &optional new-buffer-name)
   "Start a terminal-emulator in a new buffer.
 
     With a prefix argument, it prompts the user for the shell
@@ -85,7 +93,7 @@ From the window at the lower right corner, select the one at the upper left."
               (if (eq term-ansi-buffer-base-name t)
                   (file-name-nondirectory program)
                 term-ansi-buffer-base-name)
-            "shell/term")))
+            "shell-term")))
 
   (setq term-ansi-buffer-name (concat "*" term-ansi-buffer-name "*"))
 
@@ -111,12 +119,8 @@ From the window at the lower right corner, select the one at the upper left."
                    '("-i")))))
 
   (set-buffer term-ansi-buffer-name)
-  (term-mode)
-  (term-char-mode)                      ; (term-line-mode) if you want
-
-  ;; I wanna have find-file on C-x C-f -mm
-  ;; your mileage may definitely vary, maybe it's better to put this in your
-  ;; .emacs ...
+  ;; (term-mode)
+  ; (term-char-mode)                      ; (term-line-mode) if you want
 
   (term-set-escape-char ?\C-x)
 
