@@ -1,2 +1,4 @@
 export GIT_PAGER="diff-highlight | cat"
 export PAGER=cat
+export TERM=xterm-256color
+
