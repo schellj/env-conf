@@ -133,10 +133,7 @@
         magit-popup-use-prefix-argument (quote default)
         magit-process-popup-time -1
         magit-revert-buffers (quote silent)
-        magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
-  :init
-  (magit-auto-revert-mode)
-  (global-magit-file-mode))
+        magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     "))))
 
 (use-package ivy
   :config
