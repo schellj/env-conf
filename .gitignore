@@ -1,5 +1,4 @@
 .emacs.d/backup/*
-.emacs.d/elpa/*
 .emacs.swp
 .emacs.d/#*
 .emacs.d/.emacs.desktop*
