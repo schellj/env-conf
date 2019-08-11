@@ -82,6 +82,10 @@
 (global-set-key (kbd "s-e p") 'flycheck-previous-error)
 (global-set-key (kbd "s-e x") 'flycheck-explain-error-at-point)
 
+(global-unset-key (kbd "s-c"))
+(define-prefix-command 's-c-map)
+(global-set-key (kbd "s-c") 's-c-map)
+(global-set-key (kbd "s-c c") 'company-manual-begin)
 
 (global-unset-key (kbd "s-p"))
 (global-set-key (kbd "s-p") 'projectile-command-map)

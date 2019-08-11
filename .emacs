@@ -432,12 +432,16 @@
   (company-scrollbar-fg ((t (:inherit default :background "#555577"))))
   (company-scrollbar-bg ((t (:inherit default :background "#444466"))))
   :config
+  (defun js/company-tooltip-frontend-unless-just-one-manual-frontend (command)
+    "Only display tooltip if manually requested"
+    (when company--manual-action
+      (company-pseudo-tooltip-unless-just-one-frontend command)))
   (setq company-tooltip-idle-delay 10
         company-idle-delay 0.5
         company-tooltip-align-annotations t
-        company-frontends '(company-pseudo-tooltip-unless-just-one-frontend-with-delay
-                               company-preview-if-just-one-frontend
-                               company-echo-metadata-frontend))
+        company-frontends '(js/company-tooltip-frontend-unless-just-one-manual-frontend
+                            company-preview-if-just-one-frontend
+                            company-echo-metadata-frontend))
   ;; TODO: this should go in keys.el, but doesn't work with lazy loading and eval-after-load
   (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
   (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
