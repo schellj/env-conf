@@ -293,7 +293,7 @@
   :mode ("/architect.*view" "\\.js\\'")
   :hook (js2-mode . (lambda() (add-hook 'before-save-hook 'whitespace-cleanup nil t)))
   :config
-  (setq js2-mode-show-parse-errors t
+  (setq js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil))
 
 (use-package js2-refactor
