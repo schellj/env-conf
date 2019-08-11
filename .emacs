@@ -197,7 +197,10 @@
   :hook
   ((cperl-mode emacs-lisp-mode js2-mode js-mode) . rainbow-delimiters-mode))
 
+(use-package hydra)
+
 (use-package git-gutter
+  :after hydra
   :bind
   ("s-d M" . git-gutter-mode)
   ("s-d =" . git-gutter:popup-hunk)
