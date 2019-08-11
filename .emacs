@@ -35,6 +35,19 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (setq custom-theme-load-path
       (append '( "~/.emacs.d/themes" ) custom-theme-load-path))
+
+(if (memq window-system '(mac ns))
+    (progn
+      (use-package exec-path-from-shell
+        :config
+        (exec-path-from-shell-initialize)
+        (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+        (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+      (set-scroll-bar-mode nil)
+      (load-theme 'schellj-gui t)
+      (fringe-mode '(2 . 0)))
+  (load-theme 'schellj-terminal t))
+
 (require 'gt-perl)
 (defalias 'perl-mode 'cperl-mode)
 
@@ -412,17 +425,6 @@
 (window-divider-mode t)
 
 (set-display-table-slot standard-display-table 'wrap ?·)
-
-(if (memq window-system '(mac ns))
-    (progn
-      (require 'exec-path-from-shell)
-      (exec-path-from-shell-initialize)
-      (exec-path-from-shell-copy-env "SSH_AGENT_PID")
-      (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
-      (set-scroll-bar-mode nil)
-      (load-theme 'schellj-gui t)
-      (fringe-mode '(2 . 0)))
-  (load-theme 'schellj-terminal t))
 
 (add-hook 'find-file-hook 'smerge-try-smerge)
 (add-hook 'after-revert-hook 'smerge-try-smerge)
