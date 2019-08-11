@@ -72,6 +72,16 @@
 (define-prefix-command 's-t-map)
 (global-set-key (kbd "s-t") 's-g-map)
 (global-set-key (kbd "s-t d") 'perltidy-dwim-safe)
+(global-unset-key (kbd "s-e"))
+(define-prefix-command 's-e-map)
+(global-set-key (kbd "s-e") 's-e-map)
+(global-set-key (kbd "s-e e") 'flycheck-display-error-at-point)
+(global-set-key (kbd "s-e f") 'flycheck-first-error)
+(global-set-key (kbd "s-e l") 'flycheck-list-errors)
+(global-set-key (kbd "s-e n") 'flycheck-next-error)
+(global-set-key (kbd "s-e p") 'flycheck-previous-error)
+(global-set-key (kbd "s-e x") 'flycheck-explain-error-at-point)
+
 
 (global-unset-key (kbd "s-p"))
 (global-set-key (kbd "s-p") 'projectile-command-map)
