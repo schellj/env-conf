@@ -5,7 +5,7 @@
 (setq load-prefer-newer t)
 
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
+(load custom-file)
 
 (require 'package)
 (setq package-enable-at-startup nil)
