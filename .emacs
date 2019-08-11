@@ -38,7 +38,7 @@
 (setq
  window-divider-default-right-width 1
  window-divider-default-bottom-width 1
- debug-on-error t
+ debug-on-error nil
  perl-indent-parens-as-block t
  pcomplete-ignore-case t
  vc-git-diff-switches "-b"
