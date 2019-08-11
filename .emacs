@@ -4,6 +4,9 @@
 ;; You may delete these explanatory comments.
 (setq load-prefer-newer t)
 
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
@@ -419,9 +422,6 @@
 
 (add-hook 'find-file-hook 'smerge-try-smerge)
 (add-hook 'after-revert-hook 'smerge-try-smerge)
-
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
 
 (use-package company
   :custom-face
