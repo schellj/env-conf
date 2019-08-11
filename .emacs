@@ -14,6 +14,9 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
+;; Emacs 26.2 bug workaround
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (unless (package-installed-p 'auto-compile)
   (package-refresh-contents)
   (package-install 'auto-compile))
