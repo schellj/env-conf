@@ -41,7 +41,7 @@
  '(ns-use-native-fullscreen t)
  '(package-selected-packages
    (quote
-    (company tide moody auto-compile kubernetes-tramp persistent-scratch yaml-mode xterm-color which-key w3m volatile-highlights use-package ucs-utils spaceline smartparens rainbow-delimiters python-mode php-mode markdown-mode+ js2-mode ivy-hydra highlight-numbers go-mode git-gutter-fringe general flycheck flx flim exec-path-from-shell edit-server dumb-jump default-text-scale deadgrep csharp-mode counsel-projectile column-enforce-mode beacon auto-package-update auto-dim-other-buffers)))
+    (hydra markdown-mode js2-refactor git-gutter ivy magit projectile company tide moody auto-compile kubernetes-tramp persistent-scratch yaml-mode xterm-color which-key w3m volatile-highlights use-package ucs-utils spaceline smartparens rainbow-delimiters python-mode php-mode markdown-mode+ js2-mode ivy-hydra highlight-numbers go-mode git-gutter-fringe general flycheck flx flim exec-path-from-shell edit-server dumb-jump default-text-scale deadgrep csharp-mode counsel-projectile column-enforce-mode beacon auto-package-update auto-dim-other-buffers)))
  '(projectile-switch-project-action (quote projectile-ag))
  '(py-tab-indent t)
  '(safe-local-variable-values
