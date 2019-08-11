@@ -483,4 +483,5 @@
   (add-hook 'js2-mode-hook 'company-mode t)
   (add-hook 'before-save-hook 'tide-format-before-save t)
   (add-hook 'js2-mode-hook (lambda () (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)) t)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled)))
+  (setq flycheck-check-syntax-automatically '(save mode-enabled)
+        tide-default-mode "JS"))
