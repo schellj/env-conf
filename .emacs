@@ -414,6 +414,8 @@
       (buffer-id :priority 95)
       (version-control :priority 78))
     '((selection-info :priority 95)
+      (flycheck-info :priority 75)
+      (flycheck-warning :priority 76)
       (flycheck-error :priority 77)
       (major-mode :priority 79)
       (global :when active :priority 94)
