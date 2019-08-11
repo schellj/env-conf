@@ -261,6 +261,11 @@
   (setq js2-mode-show-parse-errors t
         js2-mode-show-strict-warnings nil))
 
+(use-package js2-refactor
+  :hook (js2-mode . js2-refactor-mode)
+  :config
+  (global-unset-key (kbd "s-f"))
+  (js2r-add-keybindings-with-prefix "s-f"))
 
 (use-package php-mode
   :mode "\\.php\\'"
