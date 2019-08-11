@@ -468,6 +468,9 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
   (define-key company-active-map (kbd "M-'") 'company-complete-selection))
 
+(use-package flycheck)
+(use-package eldoc)
+
 (use-package tide
   :after (js2-mode company flycheck eldoc)
   :config
