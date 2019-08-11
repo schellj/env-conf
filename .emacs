@@ -179,7 +179,7 @@
   '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :background "#f8ccf8"))))
   '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :background "#f8f8aa"))))
   :hook
-  ((cperl-mode emacs-lisp-mode) . rainbow-delimiters-mode))
+  ((cperl-mode emacs-lisp-mode js2-mode js-mode) . rainbow-delimiters-mode))
 
 (use-package git-gutter
   :bind
