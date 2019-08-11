@@ -54,8 +54,6 @@
  completion-ignore-case t
  completions-format (quote vertical)
 
- js2-mode-show-parse-errors t
- js2-mode-show-strict-warnings nil
  read-buffer-completion-ignore-case t
  read-file-name-completion-ignore-case t
  show-trailing-whitespace nil
@@ -263,7 +261,11 @@
 
 (use-package js2-mode
   :mode ("/architect.*view" "\\.js\\'")
-  :hook (js2-mode . (lambda() (add-hook 'before-save-hook 'whitespace-cleanup nil t))))
+  :hook (js2-mode . (lambda() (add-hook 'before-save-hook 'whitespace-cleanup nil t)))
+  :config
+  (setq js2-mode-show-parse-errors t
+        js2-mode-show-strict-warnings nil))
+
 
 (use-package php-mode
   :mode "\\.php\\'"
