@@ -141,6 +141,15 @@
 
 (use-package magit
   :config
+  ;; TODO: Figure out why we have to do these requires manually
+  (require 'magit-patch)
+  (require 'magit-subtree)
+  (require 'magit-ediff)
+  (require 'magit-gitignore)
+  (require 'magit-extras)
+  (require 'git-rebase)
+  (require 'magit-imenu)
+  (require 'magit-bookmark)
   (setq magit-branch-arguments nil
         magit-commit-arguments nil
         magit-commit-ask-to-stage t
