@@ -418,3 +418,34 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
+(use-package company
+  :custom-face
+  (company-tooltip ((t (:inherit default :background "#222244"))))
+  (company-tooltip-selection ((t (:inherit default :background "#442222"))))
+  (company-tooltip-search ((t (:inherit default :background "#224422"))))
+  (company-tooltip-search-selection ((t (:inherit default :background "#662222"))))
+  (company-scrollbar-fg ((t (:inherit default :background "#555577"))))
+  (company-scrollbar-bg ((t (:inherit default :background "#444466"))))
+  :config
+  (setq company-tooltip-idle-delay 10
+        company-idle-delay 0.5
+        company-tooltip-align-annotations t
+        company-frontends '(company-pseudo-tooltip-unless-just-one-frontend-with-delay
+                               company-preview-if-just-one-frontend
+                               company-echo-metadata-frontend))
+  ;; TODO: this should go in keys.el, but doesn't work with lazy loading and eval-after-load
+  (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+  (define-key company-active-map (kbd "M-'") 'company-complete-selection))
+
+(use-package tide
+  :after (js2-mode company flycheck eldoc)
+  :config
+  (add-hook 'js2-mode-hook 'tide-setup t)
+  (add-hook 'js2-mode-hook 'flycheck-mode t)
+  (add-hook 'js2-mode-hook 'tide-hl-identifier-mode t)
+  (add-hook 'js2-mode-hook 'eldoc-mode t)
+  (add-hook 'js2-mode-hook 'company-mode t)
+  (add-hook 'before-save-hook 'tide-format-before-save t)
+  (add-hook 'js2-mode-hook (lambda () (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)) t)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled)))
