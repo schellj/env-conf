@@ -82,12 +82,12 @@
 
 (use-package auto-package-update
   :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
+  (setq auto-package-update-delete-old-versions t
+        auto-package-update-hide-results t)
   (auto-package-update-maybe))
 
 (use-package default-text-scale
-  :init
+  :config
   (default-text-scale-mode))
 
 (use-package ffap
@@ -100,11 +100,10 @@
 (use-package projectile
   :config
   (setq projectile-file-exists-local-cache-expire (* 5 60))
-  :init
   (projectile-mode))
 
 (use-package xterm-color
-  :init
+  :config
   (progn (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
        (setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))))
 
@@ -226,7 +225,6 @@
   :config
   (setq sp-show-pair-from-inside t
         sp-autoinsert-pair nil)
-  :init
   (smartparens-global-mode)
   (show-smartparens-global-mode))
 
@@ -314,7 +312,7 @@
            ("xt" counsel-projectile-switch-project-action-run-term "invoke term from project root")
            ("Oc" counsel-projectile-switch-project-action-org-capture "capture into project")
            ("Oa" counsel-projectile-switch-project-action-org-agenda "open project agenda"))))
-  :init (counsel-projectile-mode))
+  (counsel-projectile-mode))
 
 (use-package dumb-jump
   :bind
@@ -333,7 +331,6 @@
 (use-package which-key
   :config
   (setq which-key-idle-delay 2.0)
-  :init
   (which-key-mode))
 
 (use-package spaceline
@@ -393,7 +390,7 @@
   (spaceline-unmodified ((t (:foreground "#000000" :background "#8888bb")))))
 
 (use-package persistent-scratch
-  :init
+  :config
   (persistent-scratch-setup-default))
 
 (global-font-lock-mode t)
