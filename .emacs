@@ -460,8 +460,7 @@
     "Only display tooltip if manually requested"
     (when company--manual-action
       (company-pseudo-tooltip-unless-just-one-frontend command)))
-  (setq company-tooltip-idle-delay 10
-        company-idle-delay 0.5
+  (setq company-idle-delay 0.1
         company-tooltip-align-annotations t
         company-frontends '(js/company-tooltip-frontend-unless-just-one-manual-frontend
                             company-preview-if-just-one-frontend
