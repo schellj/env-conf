@@ -41,7 +41,7 @@
  '(ns-use-native-fullscreen t)
  '(package-selected-packages
    (quote
-    (tide company persistent-scratch spaceline which-key dumb-jump counsel-projectile yaml-mode markdown-mode go-mode csharp-mode php-mode js2-refactor js2-mode smartparens git-gutter-fringe git-gutter hydra rainbow-delimiters volatile-highlights beacon auto-dim-other-buffers ivy magit xterm-color projectile default-text-scale auto-package-update exec-path-from-shell use-package auto-compile)))
+    (tide flycheck company persistent-scratch spaceline which-key dumb-jump counsel-projectile yaml-mode markdown-mode go-mode csharp-mode php-mode js2-refactor js2-mode smartparens git-gutter-fringe git-gutter hydra rainbow-delimiters volatile-highlights beacon auto-dim-other-buffers ivy magit xterm-color projectile default-text-scale auto-package-update exec-path-from-shell use-package auto-compile)))
  '(projectile-switch-project-action (quote projectile-ag))
  '(py-tab-indent t)
  '(safe-local-variable-values
