@@ -4,6 +4,8 @@ use List::Util qw(max sum);
 use DDP;
 use POSIX qw(floor);
 use Getopt::Std;
+use Time::Piece;
+use Time::Seconds qw(ONE_DAY ONE_HOUR ONE_MINUTE);
 
 my %_OPTS;
 getopts('vi:n:', \%_OPTS);
@@ -163,9 +165,9 @@ sub _render_aggregation_compact {
     my ($aggregation, $num_lines, %length_maxes) = @_;
 
     my $average_age = $aggregation->{age} / $aggregation->{count};
-    $average_age = $average_age > 60 * 60 * 24 ? sprintf("%.0f", $average_age / (60 * 60 * 24)) . 'd'
-        : $average_age > 60 * 60 ? sprintf("%.0f", $average_age / (60 * 60)) . 'h'
-        : $average_age > 60 ? sprintf("%.0f", $average_age / 60) . 'm'
+    $average_age = $average_age > ONE_DAY ? sprintf("%.0f", $average_age / (ONE_DAY)) . 'd'
+        : $average_age > ONE_HOUR ? sprintf("%.0f", $average_age / (ONE_HOUR)) . 'h'
+        : $average_age > ONE_MINUTE ? sprintf("%.0f", $average_age / ONE_MINUTE) . 'm'
         : sprintf("%.0f", $average_age) . 's';
 
     return ($aggregation->{is_updated}
@@ -179,7 +181,7 @@ sub _render_aggregation_compact {
             . sprintf("%$length_maxes{total_containers}s", $aggregation->{running_containers}) . '/'
             . sprintf("%$length_maxes{total_containers}s", $aggregation->{total_containers}) . ' '
             . sprintf("%$length_maxes{restarts}s", $aggregation->{restarts}) . ' '
-            . sprintf("%3s", $average_age) . ' ';
+            . sprintf("%4s", $average_age) . ' ';
 }
 
 sub _render_pods_compact {
@@ -343,10 +345,9 @@ sub _update_aggregation {
 
     $aggregation->{restarts} += $status->{pod}{restarts};
 
-    $aggregation->{age} += $status->{pod}{age} =~ /^(?<seconds>\d+)s$/ ? $+{seconds}
-        : $status->{pod}{age} =~ /^(?<minutes>\d+)m$/ ? $+{minutes} * 60
-        : $status->{pod}{age} =~ /^(?<hours>\d+)h$/ ? $+{hours} * 60 * 60
-        : $status->{pod}{age} =~ /^(?<days>\d+)d$/ ? $+{days} * 60 * 60 * 24
+    $aggregation->{age}
+        += $status->{pod}{age} =~ /^((?<days>\d+)d)?((?<hours>\d+)h)?((?<minutes>\d+)m)?((?<seconds>\d+)s)?$/
+        ? ($+{days} // 0) * ONE_DAY + ($+{hours} // 0) * ONE_HOUR + ($+{minutes} // 0) * ONE_MINUTE + ($+{seconds} // 0)
         : die "unrecognized age: $status->{pod}{age}\n";
 
     $aggregation->{is_updated} = 1
