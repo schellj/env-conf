@@ -6,8 +6,9 @@ use POSIX qw(floor);
 use Getopt::Std;
 
 my %_OPTS;
-getopts('vi:', \%_OPTS);
+getopts('vi:n:', \%_OPTS);
 my $_INTERVAL = $_OPTS{i} // 10;
+my $_NAMESPACE = $_OPTS{n} // 'default';
 
 my %_PODS;
 my %_STATUS_ABBR = (
@@ -91,7 +92,7 @@ my $order = 0;
 while (1) {
     my %new_pods;
 
-    my $cmd_output = `kubectl get pods`;
+    my $cmd_output = `kubectl get pods --namespace $_NAMESPACE`;
     chomp $output;
 
     foreach my $line (split /\n/, $cmd_output) {
