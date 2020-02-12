@@ -7,6 +7,10 @@
 (global-set-key (kbd "C--") 'undo)
 (global-unset-key (kbd "C-h"))
 (global-set-key (kbd "C-h") 'backward-delete-char)
+;; Translate the problematic keys to the function key Hyper:
+(define-key input-decode-map (kbd "C-i") (kbd "H-i"))
+;; Rebind then accordantly: 
+(global-set-key (kbd "H-i") 'counsel-imenu)
 
 (global-set-key (kbd "M-c") 'backward-capitalize-word)
 (global-set-key (kbd "M-l") 'backward-downcase-word)
@@ -16,6 +20,7 @@
 (global-set-key (kbd "M-'") 'dabbrev-expand)
 (global-set-key (kbd "M-%") 'query-replace-regexp)
 (global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 
@@ -54,13 +59,9 @@
 (global-set-key (kbd "s-r p") 'prepend-to-register)
 (global-set-key (kbd "s-r k") 'kmacro-to-register)
 
-(global-unset-key (kbd "s-m"))
-(define-prefix-command 's-smerge-map)
-(global-set-key (kbd "s-m") 's-smerge-map)
-
-(global-unset-key (kbd "s-d"))
-(define-prefix-command 's-d-map)
-(global-set-key (kbd "s-d") 's-d-map)
+;; (global-unset-key (kbd "s-m"))
+;; (define-prefix-command 's-smerge-map)
+;; (global-set-key (kbd "s-m") 's-smerge-map)
 
 (global-unset-key (kbd "s-g"))
 (define-prefix-command 's-g-map)
@@ -72,15 +73,6 @@
 (define-prefix-command 's-t-map)
 (global-set-key (kbd "s-t") 's-g-map)
 (global-set-key (kbd "s-t d") 'perltidy-dwim-safe)
-(global-unset-key (kbd "s-e"))
-(define-prefix-command 's-e-map)
-(global-set-key (kbd "s-e") 's-e-map)
-(global-set-key (kbd "s-e e") 'flycheck-display-error-at-point)
-(global-set-key (kbd "s-e f") 'flycheck-first-error)
-(global-set-key (kbd "s-e l") 'flycheck-list-errors)
-(global-set-key (kbd "s-e n") 'flycheck-next-error)
-(global-set-key (kbd "s-e p") 'flycheck-previous-error)
-(global-set-key (kbd "s-e x") 'flycheck-explain-error-at-point)
 
 (global-unset-key (kbd "s-c"))
 (define-prefix-command 's-c-map)

@@ -2,6 +2,7 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+
 (setq load-prefer-newer t)
 
 (setq custom-file "~/.emacs.d/custom.el")
@@ -10,8 +11,8 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
 ;; Emacs 26.2 bug workaround
@@ -57,44 +58,6 @@
 (load-library "keys.el")
 (load-library "functions.el")
 
-(setq-default indent-tabs-mode nil)
-(setq
- window-divider-default-right-width 1
- window-divider-default-bottom-width 1
- debug-on-error nil
- perl-indent-parens-as-block t
- pcomplete-ignore-case t
- vc-git-diff-switches "-b"
- vc-diff-switches "-b"
-
- c-basic-offset 4
- c-subword-mode t
- case-fold-search t
- case-replace t
- comint-prompt-read-only nil
- comint-scroll-to-bottom-on-input t
- complete-ignore-case t
- completion-ignore-case t
- completions-format (quote vertical)
-
- read-buffer-completion-ignore-case t
- read-file-name-completion-ignore-case t
- show-trailing-whitespace nil
- tab-width 4
- transient-mark-mode t
- truncate-partial-width-windows nil
- visible-bell nil
- flymake-perl-lib-dir "/Users/schellj/gtperl"
- vc-make-backup-files t
- backup-by-copying t
- delete-old-versions t
- kept-new-versions 10
- kept-old-versions 0
- version-control t
- shr-color-visible-luminance-min 90
- vc-follow-symlinks nil
- smerge-command-prefix (kbd "s-m"))
-
 ;;; backup/autosave
 (defvar backup-dir (expand-file-name "~/.emacs.d/backup"))
 (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave"))
@@ -102,6 +65,53 @@
       auto-save-list-file-prefix autosave-dir
       auto-save-file-name-transforms `((".*" ,autosave-dir t))
       create-lockfiles nil)
+
+(use-package emacs
+  :config
+  (setq-default indent-tabs-mode nil)
+  (setq tab-bar-show 1
+        tab-bar-position t
+        window-divider-default-right-width 1
+        window-divider-default-bottom-width 1
+        debug-on-error nil
+        perl-indent-parens-as-block t
+        pcomplete-ignore-case t
+        vc-git-diff-switches "-b"
+        vc-diff-switches "-b"
+
+        c-basic-offset 4
+        c-subword-mode t
+        case-fold-search t
+        case-replace t
+        comint-prompt-read-only nil
+        comint-scroll-to-bottom-on-input t
+        complete-ignore-case t
+        completion-ignore-case t
+        completions-format '(vertical)
+
+        read-buffer-completion-ignore-case t
+        read-file-name-completion-ignore-case t
+        show-trailing-whitespace nil
+        tab-width 4
+        transient-mark-mode t
+        truncate-partial-width-windows nil
+        visible-bell nil
+        flymake-perl-lib-dir "/Users/schellj/gtperl"
+        vc-make-backup-files t
+        backup-by-copying t
+        delete-old-versions t
+        kept-new-versions 10
+        kept-old-versions 0
+        version-control t
+        shr-color-visible-luminance-min 90
+        vc-follow-symlinks nil)
+  (global-font-lock-mode t)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (desktop-save-mode +1)
+  (window-divider-mode +1)
+  (tab-bar-mode +1)
+  (set-display-table-slot standard-display-table 'wrap ?·))
 
 (use-package auto-package-update
   :config
@@ -113,6 +123,23 @@
   :config
   (default-text-scale-mode))
 
+(use-package smerge-mode
+  :after hydra
+  :config
+  (add-hook 'find-file-hook 'smerge-try-smerge)
+  (add-hook 'after-revert-hook 'smerge-try-smerge)
+  :bind
+  ("s-m" . hydra-smerge/body)
+  :init
+  (defhydra
+    hydra-smerge
+    (:quit-key "C-g")
+    "smerge"
+    ("n" smerge-next "Next")
+    ("p" smerge-previous "Previous")
+    ("u" smerge-keep-upper "Keep Upper")
+    ("l" smerge-keep-lower "Keep Lower")))
+
 (use-package ffap
   :config
   (add-to-list 'ffap-alist '(shell-mode . ffap-gits-src))
@@ -121,8 +148,12 @@
   (add-to-list 'ffap-alist '(term-mode . ffap-gits-current)))
 
 (use-package projectile
+  :after ivy
   :config
-  (setq projectile-file-exists-local-cache-expire (* 5 60))
+  (setq
+   projectile-indexing-method 'native
+   projectile-enable-caching t
+   projectile-completion-system 'ivy)
   (projectile-mode))
 
 (use-package xterm-color
@@ -137,7 +168,13 @@
         remote-file-name-inhibit-cache nil
         vc-ignore-dir-regexp (format "%s\\|%s"
                                      vc-ignore-dir-regexp
-                                     tramp-file-name-regexp)))
+                                     tramp-file-name-regexp))
+  (add-to-list 'tramp-methods
+               '("kexec"
+                (tramp-login-program "kubectl")
+                (tramp-login-args (("exec" "-it") ("%h") ("-c" "workbench") ("sh")))
+                (tramp-remote-shell "bash")
+                (tramp-remote-shell-args ("-i" "-c")))))
 
 (use-package magit
   :config
@@ -173,12 +210,11 @@
    ivy-wrap t
    ivy-use-virtual-buffers t
    ivy-count-format "(%d/%d) "
-   projectile-completion-system 'ivy
-   ivy-re-builders-alist '((t . ivy--regex-ignore-order))))
+   ivy-re-builders-alist '((t . ivy--regex-ignore-order))
+   ivy-read-action-function #'ivy-hydra-read-action))
 
-(use-package auto-dim-other-buffers
-  :config
-  (auto-dim-other-buffers-mode t))
+(use-package ivy-hydra
+  :after ivy)
 
 (use-package beacon
   :config
@@ -213,17 +249,6 @@
 
 (use-package git-gutter
   :after hydra
-  :bind
-  ("s-d M" . git-gutter-mode)
-  ("s-d =" . git-gutter:popup-hunk)
-  ("s-d n" . git-gutter:next-hunk)
-  ("s-d p" . git-gutter:previous-hunk)
-  ("s-d e" . git-gutter:end-of-hunk)
-  ("s-d k" . git-gutter:revert-hunk)
-  ("s-d s" . git-gutter:stage-hunk)
-  ("s-d m" . git-gutter:mark-hunk)
-  ("s-d r" . git-gutter:set-start-revision)
-  ("s-d S" . git-gutter:statistic)
   :config
   (setq
    git-gutter-fr:added-sign "+"
@@ -240,28 +265,34 @@
    git-gutter:modified-sign "!"
    git-gutter:unchanged-sign " "
    git-gutter:visual-line t)
-  (defhydra hydra-git-gutter (global-map "s-d" :pre (ignore-errors (git-gutter:popup-hunk)) :post (kill-matching-buffers-no-ask "*git-gutter:diff*"))
-    "git-gutter"
-    ("=" git-gutter:popup-hunk "hunk at cursor")
-    ("n" git-gutter:next-hunk "next hunk")
-    ("p" git-gutter:previous-hunk "previous hunk")
-    ("k" git-gutter:revert-hunk "kill hunk"))
   (defun git-gutter-enable-unless-remote ()
     (unless (file-remote-p buffer-file-name)
       (git-gutter-mode +1)))
-  (add-hook 'find-file-hook 'git-gutter-enable-unless-remote))
+  (add-hook 'find-file-hook 'git-gutter-enable-unless-remote)
+  :bind
+  ("s-d" . hydra-git-gutter/body)
+  :init
+  (defhydra
+    hydra-git-gutter
+    (:quit-key "C-g" :pre (ignore-errors (git-gutter:popup-hunk)) :post (kill-matching-buffers-no-ask "*git-gutter:diff*"))
+    "git-gutter"
+    ("p" git-gutter:previous-hunk "Previous")
+    ("n" git-gutter:next-hunk "Next")
+    ("=" git-gutter:popup-hunk "At Cursor")
+    ("e" git-gutter:end-of-hunk "End of Current")
+    ("k" git-gutter:revert-hunk "Kill")
+    ("m" git-gutter:mark-hunk "Mark")
+    ("s" git-gutter:stage-hunk "Stage")
+    ("M" git-gutter-mode "Git Gutter Mode")
+    ("S" git-gutter:statistic "Stats")))
 
 (use-package git-gutter-fringe)
 
-(use-package smartparens
-  :bind
-  (("M-p" . sp-backward-sexp)
-   ("M-n" . sp-forward-sexp))
+(use-package paren
+  :init
+  (setq show-paren-delay 0)
   :config
-  (setq sp-show-pair-from-inside t
-        sp-autoinsert-pair nil)
-  (smartparens-global-mode)
-  (show-smartparens-global-mode))
+  (show-paren-mode +1))
 
 (use-package cperl-mode
   :mode ("/t/.*\\.t\\'" "\\.pm\\'" "\\.pl\\'")
@@ -312,46 +343,28 @@
 
 (use-package go-mode
   :mode "\\.go\\'"
-  :hook (go-mode . (lambda() (setq indent-tabs-mode t))))
+  :hook
+  (go-mode . (lambda()
+               (setq indent-tabs-mode t)
+               (add-hook 'before-save-hook 'gofmt-before-save))))
 
 (use-package markdown-mode
   :mode "\\.md\\'"
   :hook (markdown-mode . (lambda() (setq indent-tabs-mode t))))
 
 (use-package yaml-mode
-  :mode ("\\.yml\\'" "\\.yaml\\'"))
+  :mode ("\\.yml\\'" "\\.yaml\\'")
+  :hook (yaml-mode . highlight-indent-guides-mode))
 
 (use-package csharp-mode
   :mode "\\.cs\\'")
 
 (use-package counsel-projectile
+  :after projectile
   :config
   (setq
-   counsel-find-file-ignore-regexp nil
-   counsel-projectile-switch-project-action
-   (quote (1
-           ("o" counsel-projectile-switch-project-action "jump to a project buffer or file")
-           ("f" counsel-projectile-switch-project-action-find-file "jump to a project file")
-           ("d" counsel-projectile-switch-project-action-find-dir "jump to a project directory")
-           ("D" counsel-projectile-switch-project-action-dired "open project in dired")
-           ("b" counsel-projectile-switch-project-action-switch-to-buffer "jump to a project buffer")
-           ("m" counsel-projectile-switch-project-action-find-file-manually "find file manually from project root")
-           ("S" counsel-projectile-switch-project-action-save-all-buffers "save all project buffers")
-           ("k" counsel-projectile-switch-project-action-kill-buffers "kill all project buffers")
-           ("K" counsel-projectile-switch-project-action-remove-known-project "remove project from known projects")
-           ("c" counsel-projectile-switch-project-action-compile "run project compilation command")
-           ("C" counsel-projectile-switch-project-action-configure "run project configure command")
-           ("E" counsel-projectile-switch-project-action-edit-dir-locals "edit project dir-locals")
-           ("v" counsel-projectile-switch-project-action-vc "open project in vc-dir / magit / monky")
-           ("sg" counsel-projectile-switch-project-action-grep "search project with grep")
-           ("si" counsel-projectile-switch-project-action-git-grep "search project with git grep")
-           ("ss" counsel-projectile-switch-project-action-ag "search project with ag")
-           ("sr" counsel-projectile-switch-project-action-rg "search project with rg")
-           ("xs" counsel-projectile-switch-project-action-run-shell "invoke shell from project root")
-           ("xe" counsel-projectile-switch-project-action-run-eshell "invoke eshell from project root")
-           ("xt" counsel-projectile-switch-project-action-run-term "invoke term from project root")
-           ("Oc" counsel-projectile-switch-project-action-org-capture "capture into project")
-           ("Oa" counsel-projectile-switch-project-action-org-agenda "open project agenda"))))
+   counsel-find-file-ignore-regexp nil)
+  (counsel-projectile-modify-action 'counsel-projectile-switch-project-action '((default 2)))
   (counsel-projectile-mode))
 
 (use-package dumb-jump
@@ -379,15 +392,15 @@
   (spaceline-define-segment buffer-line-count
     "<CURRENT_LINE>/<BUFFER_LINES> <COLUMN_NUMBER>"
     (format "%%l/%d %%c" (count-lines (point-min) (point-max))))
-  (defvar spaceline-time)
-  (defun set-spaceline-time ()
-    (with-current-buffer (get-buffer "*scratch*")
-      (setq spaceline-time (shell-command-to-string "echo -n $(TZ='America/Los_Angeles' date '+%I:%M%p')"))))
-  (run-with-timer 0 15 'set-spaceline-time)
-  (spaceline-define-segment datetime
-    spaceline-time)
+  ;; (defvar spaceline-time)
+  ;; (defun set-spaceline-time ()
+  ;;   (with-current-buffer (get-buffer "*scratch*")
+  ;;     (setq spaceline-time (shell-command-to-string "echo -n $(TZ='America/Los_Angeles' date '+%I:%M%p')"))))
+  ;; (run-with-timer 0 15 'set-spaceline-time)
+  ;; (spaceline-define-segment datetime
+  ;;   spaceline-time)
   (setq
-   spaceline-time "12:00AM"
+   ;; spaceline-time "12:00AM"
    spaceline-byte-compile t
    powerline-default-separator "rounded"
    spaceline-separator-dir-left '(left . left)
@@ -406,46 +419,50 @@
                          (run-with-timer 0.01 nil 'invert-face 'spaceline-read-only)
                          (invert-face 'spaceline-unmodified)
                          (run-with-timer 0.01 nil 'invert-face 'spaceline-unmodified)))
-  (spaceline-compile "jschell"
+  (spaceline-compile "jschell-mode"
     '((buffer-modified :priority 98 :face highlight-face)
       (buffer-line-count :priority 97)
       (remote-host :priority 94)
       (projectile-root :priority 93)
       (buffer-id :priority 95)
-      (version-control :priority 78))
+      (version-control :priority 70))
     '((selection-info :priority 95)
       (flycheck-info :priority 75)
       (flycheck-warning :priority 76)
       (flycheck-error :priority 77)
-      (major-mode :priority 79)
+      (major-mode :priority 50)
       (global :when active :priority 94)
-      (datetime :priority 92)))
-  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-jschell))))
+      (battery :priority 98)))
+  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-jschell-mode))))
   :custom-face
   (mode-line ((t (:background "#444477"))))
   (mode-line-inactive ((t (:foreground "#bbbbbb" :background "#444444"))))
   (powerline-active1 ((t (:background "#666699"))))
-  (powerline-active2 ((t (:background "#111111"))))
-  (powerline-inactive1 ((t (:foreground "#bbbbbb" :background "#555555"))))
-  (powerline-inactive2 ((t (:foreground "#bbbbbb" :background "#222222"))))
+  (powerline-active2 ((t (:background "#222222"))))
+  (powerline-inactive1 ((t (:foreground "#bbbbbb" :background "#666666"))))
+  (powerline-inactive2 ((t (:foreground "#bbbbbb" :background "#333333"))))
   (spaceline-modified ((t (:foreground "#000000" :background "#ccaa33"))))
   (spaceline-read-only ((t (:foreground "#000000" :background "#dd0101"))))
-  (spaceline-unmodified ((t (:foreground "#000000" :background "#8888bb")))))
+  (spaceline-unmodified ((t (:foreground "#000000" :background "#8888bb"))))
+  (spaceline-flycheck-error ((t (:foreground "#ff0000" :weight bold))))
+  (spaceline-flycheck-warning ((t (:foreground "#ffff00" :weight bold))))
+  (spaceline-flycheck-info ((t (:foreground "#0000ff")))))
+
+(use-package fancy-battery
+  :config
+  (fancy-battery-mode))
+
+(use-package column-enforce-mode
+  :init
+  (setq column-enforce-column 100)
+  :config
+  (global-column-enforce-mode)
+  :custom-face
+  (column-enforce-face ((t (:background "#333333")))))
 
 (use-package persistent-scratch
   :config
   (persistent-scratch-setup-default))
-
-(global-font-lock-mode t)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(desktop-save-mode 1)
-(window-divider-mode t)
-
-(set-display-table-slot standard-display-table 'wrap ?·)
-
-(add-hook 'find-file-hook 'smerge-try-smerge)
-(add-hook 'after-revert-hook 'smerge-try-smerge)
 
 (use-package company
   :custom-face
@@ -470,7 +487,32 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
   (define-key company-active-map (kbd "M-'") 'company-complete-selection))
 
-(use-package flycheck)
+(use-package flycheck
+  :after hydra
+  :hook
+  (cperl-mode . flycheck-mode)
+  :custom-face
+  (flycheck-error ((t (:background "#552255" :box (:line-width -1 :color "#662266")))))
+  (flycheck-warning ((t (:background "#222255" :box (:line-width -1 :color "#222266")))))
+  (flycheck-info ((t (:background "#333333" :box (:line-width -1 :color "#444444")))))
+  (flycheck-fringe-error ((t (:foreground "#ff00ff" :background "#ff00ff"))))
+  (flycheck-fringe-warning ((t (:foreground "#0000ff" :background "#0000ff"))))
+  (flycheck-fringe-info ((t (:foreground "#aaaaaa" :background "#aaaaaa"))))
+  :init
+  (defhydra
+    hydra-flycheck
+    (:quit-key "C-g")
+    "Flycheck"
+    ("p" flycheck-previous-error "Previous Error")
+    ("n" flycheck-next-error "Next Error")
+    ("b" flycheck-buffer "Check Buffer")
+    ("c" flycheck-compile "Compile Buffer")
+    ("l" counsel-flycheck "List Errors"))
+  :bind
+  ("s-e" . hydra-flycheck/body)
+  :config
+  (setq-default flycheck-perl-include-path '("/Users/jschell/gtperl" "/Users/jschell/gtperl/external_deps/lib/perl5")))
+
 (use-package eldoc)
 
 (use-package tide
@@ -485,3 +527,26 @@
   (add-hook 'js2-mode-hook (lambda () (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)) t)
   (setq flycheck-check-syntax-automatically '(save mode-enabled)
         tide-default-mode "JS"))
+
+(use-package highlight-symbol
+  :hook (prog-mode . highlight-symbol-mode)
+  :custom
+  (highlight-symbol-idle-delay 0.3))
+
+(use-package fira-code
+  :ensure nil
+  :hook
+  (cperl-mode . fira-code-mode)
+  (js2-mode . fira-code-mode)
+  (php-mode . fira-code-mode)
+  (csharp-mode . fira-code-mode)
+  (go-mode . fira-code-mode)
+  (markdown-mode . fira-code-mode)
+  (csharp-mode . fira-code-mode)
+  (emacs-lisp-mode . fira-code-mode)
+  (lisp-mode . fira-code-mode))
+
+(use-package json-mode
+  :mode ("\\.json\\'"))
+
+(use-package highlight-indent-guides)

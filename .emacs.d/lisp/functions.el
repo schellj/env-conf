@@ -137,7 +137,7 @@ From the window at the lower right corner, select the one at the upper left."
   (concat (ffap-gits name) "/" name))
 
 (defun ffap-gits-src (name)
-  (concat "~/src/" (ffap-gits name) "/" name))
+  (concat "~/GT/repo/" (ffap-gits name) "/" name))
 
 (defun what-face (pos)
     (interactive "d")
