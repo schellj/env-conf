@@ -205,6 +205,11 @@
 
 (use-package ivy
   :config
+  (defun schellj/ivy-string-length-compare (x y)
+    "Compare string lengths"
+    (< (length x) (length y)))
+  (add-to-list 'ivy-sort-functions-alist
+               '(counsel-projectile-find-file . schellj/ivy-string-length-compare))
   (setq
    ivy-extra-directories nil
    ivy-wrap t
