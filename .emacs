@@ -555,3 +555,36 @@
   :mode ("\\.json\\'"))
 
 (use-package highlight-indent-guides)
+
+(defun schellj/display-buffer (buffer side)
+  "Select SIDE window for BUFFER if two non-minibuffer windows are visible."
+    (when (= (length (window-list)) 2)
+      (let ((window (nth 0 (window-at-side-list nil side))))
+        (set-window-buffer window buffer)
+        window)))
+
+(defun schellj/display-buffer-left (buffer &optional alist)
+  "Select left window for BUFFER."
+  (schellj/display-buffer buffer 'left))
+
+(defun schellj/display-buffer-right (buffer &optional alist)
+  "Select right window for BUFFER."
+  (schellj/display-buffer buffer 'right))
+
+(add-to-list 'display-buffer-alist
+             '("^magit: "
+               (display-buffer-reuse-window
+                schellj/display-buffer-right
+                display-buffer-in-side-window)
+               (reusable-frames . visible)
+               (side . right)
+               (window-width . 0.50)))
+
+(add-to-list 'display-buffer-alist
+             '("^\\*shell\\*$"
+               (display-buffer-reuse-window
+                schellj/display-buffer-left
+                display-buffer-in-side-window)
+               (reusable-frames . visible)
+               (side . left)
+               (window-width . 0.50)))
