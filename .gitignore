@@ -11,3 +11,7 @@
 .emacs.d/.persistent-scratch
 .emacs.d/transient/
 .emacs.d/url/
+.emacs.d/elpa/
+.emacs.d/lsp-tmp-*
+.emacs.d/.dap-breakpoints
+.emacs.d/.lsp-session-v1
