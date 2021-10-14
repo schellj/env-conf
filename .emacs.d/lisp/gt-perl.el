@@ -24,7 +24,7 @@
 ;;;
 (provide 'gt-perl)
 ;; (load-library "cperl-mode")
-(load-library "cl")
+(load-library "cl-lib")
 (load-library "thingatpt")
 (defconst gt-perl-src-re "\\(.*/src/\\)/")
 (defvar gt-perl-use-version-5-6 t
@@ -304,7 +304,7 @@ Otherwise, inserts in the methods section."
     (if (not type)
     (progn
       (setq type
-        (case qualifier
+        (cl-case qualifier
           (?a 'ABSTRACT)
           (?c (setq name (upcase name)) 'CONSTANT)
           (?f 'FACTORY)

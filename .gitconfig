@@ -1,3 +1,5 @@
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
 [core]
     excludesfile = ~/.gitignore_global
 [pager]
@@ -6,7 +8,7 @@
     diff = diff-highlight | less -FRXK
 [user]
     name = Justin Schell
-    email = justinmschell@gmail.com
+    email = justin@gudtech.com
 [color]
     ui = auto
 [push]
@@ -32,5 +34,12 @@
     newHighlight = "\\x1b[1;38;5;11;48;5;236m"
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+	insteadOf = https://github.com/
+	insteadOf = https://github.com/
+	insteadOf = https://github.com/
 [github]
 	user = schellj
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main

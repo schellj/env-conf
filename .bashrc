@@ -107,3 +107,10 @@ export PERLLIB="$HOME/gtperl"
 export PERL5LIB="$HOME/gtperl"
 export PERL_CPANM_OPT='--sudo'
 export MYSQL_PS1="[\u \d]$ "
+export GOPATH=~/go
+export GPG_TTY=$(tty)
+export GIT_TERMINAL_PROMPT=1
+export GOPRIVATE=github.com/gudtech
+export GOBIN=~/go/bin
+
+mutagen daemon start

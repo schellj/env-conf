@@ -1,0 +1,1 @@
+do shell script "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -a '' --eval '(js/select-terminal-frame-external)'"

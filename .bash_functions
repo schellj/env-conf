@@ -56,20 +56,39 @@ function watch_container {
     while sleep 3; do docker_id=$(docker ps -qf name=$container); if [ "x$docker_id" != "x" ]; then docker attach $container; else echo .; fi; done
 }
 
-function kube_bounce_deployment {
-	deployment=$1
+function dc_trace_cmd {
+  local parent=`docker inspect -f '{{ .Parent }}' $1` 2>/dev/null
+  declare -i level=$2
+  echo ${level}: `docker inspect -f '{{ .ContainerConfig.Cmd }}' $1 2>/dev/null`
+  level=level+1
+  if [ "${parent}" != "" ]; then
+    echo ${level}: $parent
+    dc_trace_cmd $parent $level
+  fi
+}
 
-	command=$(echo kubectl patch deployment $deployment -p "'{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date --utc '+%FT%TZ'`\"}}}}'")
-	echo $command
-	eval $command
+function kube_bounce_deployment {
+    deployment=$1
+
+    command=$(echo kubectl patch deployment $deployment -p "'{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date --utc '+%FT%TZ'`\"}}}}'")
+    echo $command
+    eval $command
 }
 
 function kube_bounce_statefulset {
     statefulset=$1
 
-	command=$(echo kubectl patch statefulset $statefulset -p "'{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date --utc '+%FT%TZ'`\"}}}}'")
-	echo $command
-	eval $command
+    command=$(echo kubectl patch statefulset $statefulset -p "'{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date --utc '+%FT%TZ'`\"}}}}'")
+    echo $command
+    eval $command
+}
+
+function kube_bounce_daemonset {
+    daemonset=$1
+
+    command=$(echo kubectl patch daemonset $daemonset -p "'{\"spec\":{\"template\":{\"metadata\":{\"creationTimestamp\":\"`date --utc '+%FT%TZ'`\"}}}}'")
+    echo $command
+    eval $command
 }
 
 function kube_force_delete_pod {
@@ -82,4 +101,32 @@ function kube_force_delete_pod {
     patch_command=$(kubectl patch pod $pod -p '{"metadata":{"finalizers":null}}')
     echo $patch_command
     eval $patch_command
+}
+
+vterm_printf(){
+    if [ -n "$TMUX" ]; then
+        # Tell tmux to pass the escape sequences through
+        # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+
+vterm_prompt_end(){
+    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+}
+PS1=$PS1'\[$(vterm_prompt_end)\]'
+
+vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+        vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+        shift
+    done
+    vterm_printf "51;E$vterm_elisp"
 }

@@ -11,3 +11,7 @@ alias cd='cd -P'
 alias k=kubectl
 alias kgp='kubectl get pods -o wide'
 alias kgpw='kubectl get pods -o wide -w'
+alias kgn='kubectl get nodes'
+alias kgnw='kubectl get nodes -w'
+alias agp='ag --perl'
+alias prodmqmon='for x in 1 2 3; do ssh -n -N -L 1567$x:localhost:15672 root@p$x-bgdispatch.ex.retailops.com & done'

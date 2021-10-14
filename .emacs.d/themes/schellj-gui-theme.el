@@ -145,7 +145,6 @@
    `(col-highlight ((t (:background ,schellj-grey+3)) t))
    `(vline ((t (:background ,schellj-grey+3)) t))
    ;; TODO
-   ;; ido-mode
    ;; flycheck
    ;; show-paren
    ;; highlight-symbols
